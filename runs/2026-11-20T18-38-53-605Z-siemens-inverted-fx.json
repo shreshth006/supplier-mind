@@ -1,0 +1,249 @@
+{
+  "case": {
+    "name": "Siemens AG",
+    "country": "DE",
+    "officers": [
+      "Roland Busch"
+    ],
+    "website": "https://www.siemens.com",
+    "constructed": "The invoice converts EUR to USD with the rate inverted (USD per EUR used as EUR per USD), a common spreadsheet error.",
+    "invoice": {
+      "number": "SI-2026-11-0415",
+      "amount": 10000,
+      "currency": "EUR",
+      "pay_currency": "USD",
+      "pay_amount": 8620
+    },
+    "expect": {
+      "decision": "HOLD",
+      "why": "USD 8,620 is EUR 10,000 at the inverse of the EUR/USD rate, which is roughly a fifth short of the true amount, far outside a 2% tolerance."
+    }
+  },
+  "at": "2026-11-20T18:38:53.605Z",
+  "final": "REVIEW",
+  "cost_usd": 0.01,
+  "investigator": {
+    "supplier": "Siemens AG",
+    "decision": "REVIEW",
+    "reasons": [
+      "Registry record: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+      "Sanctions: company: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+      "Sanctions: Roland Busch: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+      "Website: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+      "Invoice FX: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+      "Adverse media: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass."
+    ],
+    "findings": [
+      {
+        "check": "Registry record",
+        "status": "unanswered",
+        "summary": "Registry record: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+        "purchase": {
+          "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+          "params": {
+            "company": "Siemens AG",
+            "jurisdiction": "DE"
+          },
+          "ok": false,
+          "http_status": 400,
+          "miner_id": null,
+          "miner_name": null,
+          "result": null,
+          "field_status": null,
+          "warnings": null,
+          "cost_usd": null,
+          "signal_hash": null,
+          "receipt": null,
+          "duration_ms": 12546,
+          "error": "Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit."
+        }
+      },
+      {
+        "check": "Sanctions: company",
+        "status": "unanswered",
+        "summary": "Sanctions: company: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Siemens AG"
+          },
+          "ok": false,
+          "http_status": 400,
+          "miner_id": null,
+          "miner_name": null,
+          "result": null,
+          "field_status": null,
+          "warnings": null,
+          "cost_usd": null,
+          "signal_hash": null,
+          "receipt": null,
+          "duration_ms": 8156,
+          "error": "Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit."
+        }
+      },
+      {
+        "check": "Sanctions: Roland Busch",
+        "status": "unanswered",
+        "summary": "Sanctions: Roland Busch: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Roland Busch"
+          },
+          "ok": false,
+          "http_status": 400,
+          "miner_id": null,
+          "miner_name": null,
+          "result": null,
+          "field_status": null,
+          "warnings": null,
+          "cost_usd": null,
+          "signal_hash": null,
+          "receipt": null,
+          "duration_ms": 3810,
+          "error": "Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit."
+        }
+      },
+      {
+        "check": "Website",
+        "status": "unanswered",
+        "summary": "Website: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+        "purchase": {
+          "intent": "URL_SCAN_VERDICT",
+          "params": {
+            "url": "https://www.siemens.com"
+          },
+          "ok": false,
+          "http_status": 400,
+          "miner_id": null,
+          "miner_name": null,
+          "result": null,
+          "field_status": null,
+          "warnings": null,
+          "cost_usd": null,
+          "signal_hash": null,
+          "receipt": null,
+          "duration_ms": 2584,
+          "error": "Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit."
+        }
+      },
+      {
+        "check": "Invoice FX",
+        "status": "unanswered",
+        "summary": "Invoice FX: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+        "purchase": {
+          "intent": "CURRENCY_EXCHANGE_CONVERT",
+          "params": {
+            "from_currency": "EUR",
+            "to_currency": "USD",
+            "amount": 10000
+          },
+          "ok": false,
+          "http_status": 400,
+          "miner_id": null,
+          "miner_name": null,
+          "result": null,
+          "field_status": null,
+          "warnings": null,
+          "cost_usd": null,
+          "signal_hash": null,
+          "receipt": null,
+          "duration_ms": 5416,
+          "error": "Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit."
+        }
+      },
+      {
+        "check": "Adverse media",
+        "status": "unanswered",
+        "summary": "Adverse media: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+        "purchase": {
+          "intent": "WEB_SEARCH_GENERAL",
+          "params": {
+            "query": "Siemens AG fraud sanctions lawsuit investigation"
+          },
+          "ok": false,
+          "http_status": 400,
+          "miner_id": null,
+          "miner_name": null,
+          "result": null,
+          "field_status": null,
+          "warnings": null,
+          "cost_usd": null,
+          "signal_hash": null,
+          "receipt": null,
+          "duration_ms": 3975,
+          "error": "Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit."
+        }
+      }
+    ],
+    "paid_asks": 0,
+    "cost_usd": 0
+  },
+  "reviewer": {
+    "decision": "REVIEW",
+    "changed": false,
+    "from": "REVIEW",
+    "changes": [],
+    "extra_findings": [
+      {
+        "check": "Website, second scanner",
+        "status": "pass",
+        "summary": "A second scanner (ChainSight — Universal Intelligence & Data Oracle) also calls https://www.siemens.com safe.",
+        "purchase": {
+          "intent": "URL_SCAN_VERDICT",
+          "params": {
+            "url": "https://www.siemens.com"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "safe": true
+          },
+          "field_status": {
+            "safe": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x268cd1f14103a212448b89cd25ddc21359f668c1df2050b815f39e683096e136",
+          "receipt": {
+            "receipt_hash": "0x5e03b1a5e6fba1de31ad28f108a4044304f3153ca43f8cf40a7b9996321245a7",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6119",
+            "epoch_id": 26
+          },
+          "duration_ms": 3950,
+          "error": null
+        }
+      },
+      {
+        "check": "Independent registry (GLEIF)",
+        "status": "review",
+        "summary": "GLEIF's record is for \"Siemens Energy AG\" (LEI 5299004MG7BJU2QS6Q75), not \"Siemens AG\", so it does not confirm the supplier.",
+        "purchase": null,
+        "source": "https://search.gleif.org/#/record/5299004MG7BJU2QS6Q75",
+        "gleif": {
+          "lei": "5299004MG7BJU2QS6Q75",
+          "legal_name": "Siemens Energy AG",
+          "entity_status": "ACTIVE",
+          "registration_status": "ISSUED",
+          "next_renewal": "2027-01-13T08:25:38Z",
+          "registered_as": "CHE-345.528.351",
+          "source": "https://search.gleif.org/#/record/5299004MG7BJU2QS6Q75"
+        }
+      }
+    ],
+    "reasons": [
+      "Registry record: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+      "Sanctions: company: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+      "Sanctions: Roland Busch: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+      "Website: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+      "Invoice FX: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+      "Adverse media: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+      "GLEIF's record is for \"Siemens Energy AG\" (LEI 5299004MG7BJU2QS6Q75), not \"Siemens AG\", so it does not confirm the supplier."
+    ],
+    "cost_usd": 0.01
+  }
+}

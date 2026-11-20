@@ -1,0 +1,9 @@
+{
+  "name": "Siemens AG",
+  "country": "DE",
+  "officers": ["Roland Busch"],
+  "website": "http://testsafebrowsing.appspot.com/s/phishing.html",
+  "constructed": "A real supplier whose invoice email carried a swapped payment link. The link is Google Safe Browsing's public phishing test page, which every scanner should flag.",
+  "invoice": { "number": "SI-2026-11-0412", "amount": 48500, "currency": "EUR", "pay_currency": "USD" },
+  "expect": { "decision": "HOLD", "why": "The payment link is a known phishing page, whatever the supplier's own record says." }
+}

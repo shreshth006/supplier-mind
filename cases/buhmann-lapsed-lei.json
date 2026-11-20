@@ -1,0 +1,6 @@
+{
+  "name": "Buhmann Holding GmbH",
+  "country": "DE",
+  "invoice": { "number": "BH-0093", "amount": 8400, "currency": "EUR", "pay_currency": "EUR" },
+  "expect": { "decision": "REVIEW", "why": "The company is active, but its LEI 529900HKLWYFPNX93K76 lapsed on 2026-11-20 (reference data not renewed), so the registry record is out of date." }
+}

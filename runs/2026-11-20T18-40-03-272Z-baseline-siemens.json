@@ -1,0 +1,30 @@
+{
+  "case": {
+    "name": "Siemens AG",
+    "country": "DE",
+    "officers": [
+      "Roland Busch"
+    ],
+    "website": "https://www.siemens.com",
+    "invoice": {
+      "number": "SI-2026-11-0412",
+      "amount": 48500,
+      "currency": "EUR",
+      "pay_currency": "USD"
+    },
+    "expect": {
+      "decision": "RELEASE",
+      "why": "A listed, active company with a current LEI, no sanctions match for it or its CEO, and its own website."
+    }
+  },
+  "at": "2026-11-20T18:40:03.272Z",
+  "model": "openai/gpt-oss-120b",
+  "telegraph": false,
+  "decision": "RELEASE",
+  "reasons": [
+    "Reputable supplier",
+    "No sanctions or watchlist matches",
+    "Invoice details appear normal",
+    "Amount within approved limits"
+  ]
+}

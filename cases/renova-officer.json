@@ -1,0 +1,7 @@
+{
+  "name": "Renova Group",
+  "country": "RU",
+  "officers": ["Viktor Vekselberg"],
+  "invoice": { "number": "RG-2026-118", "amount": 30000, "currency": "EUR", "pay_currency": "USD" },
+  "expect": { "decision": "HOLD", "why": "Renova Group and its chairman Viktor Vekselberg have been on the OFAC SDN list since April 2018." }
+}

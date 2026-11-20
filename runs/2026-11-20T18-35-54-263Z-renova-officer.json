@@ -1,0 +1,316 @@
+{
+  "case": {
+    "name": "Renova Group",
+    "country": "RU",
+    "officers": [
+      "Viktor Vekselberg"
+    ],
+    "invoice": {
+      "number": "RG-2026-118",
+      "amount": 30000,
+      "currency": "EUR",
+      "pay_currency": "USD"
+    },
+    "expect": {
+      "decision": "HOLD",
+      "why": "Renova Group and its chairman Viktor Vekselberg have been on the OFAC SDN list since April 2018."
+    }
+  },
+  "at": "2026-11-20T18:35:54.263Z",
+  "final": "HOLD",
+  "cost_usd": 0.06,
+  "investigator": {
+    "supplier": "Renova Group",
+    "decision": "HOLD",
+    "reasons": [
+      "Registry record: no usable answer (<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!), so it is not counted as a pass.",
+      "\"Renova Group\" matches RENOVA GROUP on OFAC SDN, OFAC Consolidated (non-SDN).",
+      "\"Viktor Vekselberg\" matches {\"match_type\":\"individual\",\"matched_alias\":\"VEKSELBERG, Victor\",\"matched_name\":\"VEKSELBERG, Viktor Feliksovich\",\"matched_via\":\"alias\",\"programs\":\"UKRAINE-EO13662] [RUSSIA-EO14024\",\"sdn_uid\":\"24306\",\"similarity_score\":0.9} on OFAC SDN, OFAC Consolidated (non-SDN).",
+      "No website was given for the supplier, so the payment page was not checked.",
+      "A search answer ties the supplier to a risk term, so a person should read it: \"Justice Department has filed a civil fraud lawsuit accusing Renova Group, founded by Viktor Vekselberg, of violating sanctions by routing payments through its affiliate Columbus Nova.\""
+    ],
+    "findings": [
+      {
+        "check": "Registry record",
+        "status": "unanswered",
+        "summary": "Registry record: no usable answer (<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!), so it is not counted as a pass.",
+        "purchase": {
+          "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+          "params": {
+            "company": "Renova Group",
+            "jurisdiction": "RU"
+          },
+          "ok": false,
+          "http_status": 504,
+          "miner_id": null,
+          "miner_name": null,
+          "result": null,
+          "field_status": null,
+          "warnings": null,
+          "cost_usd": null,
+          "signal_hash": null,
+          "receipt": null,
+          "duration_ms": 63169,
+          "error": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!"
+        }
+      },
+      {
+        "check": "Sanctions: company",
+        "status": "fail",
+        "summary": "\"Renova Group\" matches RENOVA GROUP on OFAC SDN, OFAC Consolidated (non-SDN).",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Renova Group"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "710637",
+          "miner_name": "Sanctions Name Evidence",
+          "result": {
+            "name": "Renova Group",
+            "matched": true,
+            "matches": [
+              "RENOVA GROUP"
+            ],
+            "lists": [
+              "OFAC SDN",
+              "OFAC Consolidated (non-SDN)",
+              "UK Sanctions List (entities only)",
+              "Canada autonomous sanctions (entities only)",
+              "EU Financial Sanctions (entities only)",
+              "US BIS Entity List (export controls)",
+              "US BIS Military End User List (export controls)",
+              "US BIS Denied Persons List (dated standard export-denial orders)",
+              "UK Sanctions List (ships)",
+              "US BIS Entity List (additional primary-row corroborated records)",
+              "Canada autonomous sanctions (November 5 additional entities)",
+              "Canada autonomous sanctions (corroborated ships)",
+              "Canada autonomous sanctions (November 5 Iranian entity amendment)"
+            ],
+            "match_score": 1
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "ok",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "Sources returned conflicting information for: lists",
+            "Sources returned conflicting information for: match_type",
+            "Sources returned conflicting information for: matched_name",
+            "Sources returned conflicting information for: name",
+            "Sources returned conflicting information for: source_url",
+            "Sources returned conflicting information for: summary",
+            "Sources returned conflicting information for: listed_name",
+            "Sources returned conflicting information for: record_url",
+            "Sources returned conflicting information for: source",
+            "Sources returned conflicting information for: additional_published_names",
+            "Sources returned conflicting information for: corroboration_url",
+            "Sources returned conflicting information for: scope",
+            "Sources returned conflicting information for: attribution",
+            "Some additional information was omitted from this response."
+          ],
+          "cost_usd": 0.02,
+          "signal_hash": "0xfed6baaac15851a01b1b75adfe4819e1fb1897d465555fbd5dd0a6c2429f9c6d",
+          "receipt": {
+            "receipt_hash": "0xc5481eb56a2f07a4479065fd727bf8b837df306b35448b1e931a1837fb017e50",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "4860",
+            "epoch_id": 26
+          },
+          "duration_ms": 45833,
+          "error": null
+        }
+      },
+      {
+        "check": "Sanctions: Viktor Vekselberg",
+        "status": "fail",
+        "summary": "\"Viktor Vekselberg\" matches {\"match_type\":\"individual\",\"matched_alias\":\"VEKSELBERG, Victor\",\"matched_name\":\"VEKSELBERG, Viktor Feliksovich\",\"matched_via\":\"alias\",\"programs\":\"UKRAINE-EO13662] [RUSSIA-EO14024\",\"sdn_uid\":\"24306\",\"similarity_score\":0.9} on OFAC SDN, OFAC Consolidated (non-SDN).",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Viktor Vekselberg"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "710637",
+          "miner_name": "Sanctions Name Evidence",
+          "result": {
+            "name": "Viktor Vekselberg",
+            "matched": true,
+            "matches": [
+              "{\"match_type\":\"individual\",\"matched_alias\":\"VEKSELBERG, Victor\",\"matched_name\":\"VEKSELBERG, Viktor Feliksovich\",\"matched_via\":\"alias\",\"programs\":\"UKRAINE-EO13662] [RUSSIA-EO14024\",\"sdn_uid\":\"24306\",\"similarity_score\":0.9}"
+            ],
+            "lists": [
+              "OFAC SDN",
+              "OFAC Consolidated (non-SDN)",
+              "UK Sanctions List (entities only)",
+              "Canada autonomous sanctions (entities only)",
+              "EU Financial Sanctions (entities only)",
+              "US BIS Entity List (export controls)",
+              "US BIS Military End User List (export controls)",
+              "US BIS Denied Persons List (dated standard export-denial orders)",
+              "UK Sanctions List (ships)",
+              "US BIS Entity List (additional primary-row corroborated records)",
+              "Canada autonomous sanctions (November 5 additional entities)",
+              "Canada autonomous sanctions (corroborated ships)",
+              "Canada autonomous sanctions (November 5 Iranian entity amendment)"
+            ],
+            "match_score": 0.941176
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "ok",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "Sources returned conflicting information for: lists",
+            "Sources returned conflicting information for: match_score",
+            "Sources returned conflicting information for: match_type",
+            "Sources returned conflicting information for: matched_name",
+            "Sources returned conflicting information for: name",
+            "Sources returned conflicting information for: source_url",
+            "Sources returned conflicting information for: summary",
+            "Sources returned conflicting information for: additional_published_names",
+            "Sources returned conflicting information for: corroboration_url",
+            "Sources returned conflicting information for: scope",
+            "Sources returned conflicting information for: attribution",
+            "Some additional information was omitted from this response."
+          ],
+          "cost_usd": 0.02,
+          "signal_hash": "0xf42d88c0a09b70c9cd4a9f9d44d4fcc016909112935feaa98110375e2a67bc91",
+          "receipt": {
+            "receipt_hash": "0x951a713bca176027fc083de5abb05a59d2cec3a54897609966bce0532c94f400",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "4860",
+            "epoch_id": 26
+          },
+          "duration_ms": 57951,
+          "error": null
+        }
+      },
+      {
+        "check": "Website",
+        "status": "review",
+        "summary": "No website was given for the supplier, so the payment page was not checked.",
+        "purchase": null
+      },
+      {
+        "check": "Invoice FX",
+        "status": "pass",
+        "summary": "EUR 30,000 is USD 32,970 at the rate now.",
+        "purchase": {
+          "intent": "CURRENCY_EXCHANGE_CONVERT",
+          "params": {
+            "from_currency": "EUR",
+            "to_currency": "USD",
+            "amount": 30000
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "7321",
+          "miner_name": "FinWire Currency Exchange",
+          "result": {
+            "converted_amount": 32970
+          },
+          "field_status": {
+            "converted_amount": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0xe7ebe4e4eab88ebad72feff21d7d6260b0b60dbde74cb415b4653eb9ec89327a",
+          "receipt": {
+            "receipt_hash": "0x28e2645a4ef80931f3cd9008ac7719a682e9702b0ef6bbc6f0ead203e5ce8a53",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5407",
+            "epoch_id": 26
+          },
+          "duration_ms": 5821,
+          "error": null
+        }
+      },
+      {
+        "check": "Adverse media",
+        "status": "review",
+        "summary": "A search answer ties the supplier to a risk term, so a person should read it: \"Justice Department has filed a civil fraud lawsuit accusing Renova Group, founded by Viktor Vekselberg, of violating sanctions by routing payments through its affiliate Columbus Nova.\"",
+        "purchase": {
+          "intent": "WEB_SEARCH_GENERAL",
+          "params": {
+            "query": "Renova Group fraud sanctions lawsuit investigation"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "9002",
+          "miner_name": "TxLens",
+          "result": {
+            "answer": "The U.S. Justice Department has filed a civil fraud lawsuit accusing Renova Group, founded by Viktor Vekselberg, of violating sanctions by routing payments through its affiliate Columbus Nova. The suit alleges $583,332.98 in illicit transfers and seeks damages and injunctive relief.",
+            "sources": [
+              "https://www.courthousenews.com/oligarchs-cousin-and-princes-heirs-russia-probe-tied-lawsuit-takes-aim-at-treasury-rule"
+            ],
+            "brief": "The U.S. Justice Department has filed a civil fraud lawsuit accusing Renova Group, founded by Viktor Vekselberg, of violating sanctions by routing payments through its affiliate Columbus Nova. The suit alleges $583,332.98 in illicit transfers and seeks damages and injunctive relief."
+          },
+          "field_status": {
+            "answer": "ok",
+            "sources": "ok",
+            "brief": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x3817d7eedfe63b0561af0fd32d7af9e64cf02b77e963845d653b1269984e324d",
+          "receipt": {
+            "receipt_hash": "0x40f7e230254ca918ea2c8e1da302448a379e2b7aba968e1665e60bbd361e327e",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6121",
+            "epoch_id": 26
+          },
+          "duration_ms": 5911,
+          "error": null
+        }
+      }
+    ],
+    "paid_asks": 4,
+    "cost_usd": 0.06
+  },
+  "reviewer": {
+    "decision": "HOLD",
+    "changed": false,
+    "from": "HOLD",
+    "changes": [],
+    "extra_findings": [
+      {
+        "check": "Independent registry (GLEIF)",
+        "status": "review",
+        "summary": "GLEIF's record is for \"RENOVA GROUP S.R.L.\" (LEI 9845008C98CF6154D896), not \"Renova Group\", so it does not confirm the supplier.",
+        "purchase": null,
+        "source": "https://search.gleif.org/#/record/9845008C98CF6154D896",
+        "gleif": {
+          "lei": "9845008C98CF6154D896",
+          "legal_name": "RENOVA GROUP S.R.L.",
+          "entity_status": "ACTIVE",
+          "registration_status": "ISSUED",
+          "next_renewal": "2027-02-18T08:22:45Z",
+          "registered_as": "03935220362",
+          "source": "https://search.gleif.org/#/record/9845008C98CF6154D896"
+        }
+      }
+    ],
+    "reasons": [
+      "Registry record: no usable answer (<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!), so it is not counted as a pass.",
+      "\"Renova Group\" matches RENOVA GROUP on OFAC SDN, OFAC Consolidated (non-SDN).",
+      "\"Viktor Vekselberg\" matches {\"match_type\":\"individual\",\"matched_alias\":\"VEKSELBERG, Victor\",\"matched_name\":\"VEKSELBERG, Viktor Feliksovich\",\"matched_via\":\"alias\",\"programs\":\"UKRAINE-EO13662] [RUSSIA-EO14024\",\"sdn_uid\":\"24306\",\"similarity_score\":0.9} on OFAC SDN, OFAC Consolidated (non-SDN).",
+      "No website was given for the supplier, so the payment page was not checked.",
+      "A search answer ties the supplier to a risk term, so a person should read it: \"Justice Department has filed a civil fraud lawsuit accusing Renova Group, founded by Viktor Vekselberg, of violating sanctions by routing payments through its affiliate Columbus Nova.\"",
+      "GLEIF's record is for \"RENOVA GROUP S.R.L.\" (LEI 9845008C98CF6154D896), not \"Renova Group\", so it does not confirm the supplier."
+    ],
+    "cost_usd": 0
+  }
+}

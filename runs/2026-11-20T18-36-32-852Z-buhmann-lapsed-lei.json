@@ -1,0 +1,208 @@
+{
+  "case": {
+    "name": "Buhmann Holding GmbH",
+    "country": "DE",
+    "invoice": {
+      "number": "BH-0093",
+      "amount": 8400,
+      "currency": "EUR",
+      "pay_currency": "EUR"
+    },
+    "expect": {
+      "decision": "REVIEW",
+      "why": "The company is active, but its LEI 529900HKLWYFPNX93K76 lapsed on 2026-11-20 (reference data not renewed), so the registry record is out of date."
+    }
+  },
+  "at": "2026-11-20T18:36:32.852Z",
+  "final": "REVIEW",
+  "cost_usd": 0.03,
+  "investigator": {
+    "supplier": "Buhmann Holding GmbH",
+    "decision": "REVIEW",
+    "reasons": [
+      "No website was given for the supplier, so the payment page was not checked."
+    ],
+    "findings": [
+      {
+        "check": "Registry record",
+        "status": "pass",
+        "summary": "\"Buhmann Holding GmbH\", registration 529900HKLWYFPNX93K76 is on the registry and active.",
+        "purchase": {
+          "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+          "params": {
+            "company": "Buhmann Holding GmbH",
+            "jurisdiction": "DE"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "20260828",
+          "miner_name": "PREFLIGHT Infrastructure Signals",
+          "result": {
+            "legal_name": "Buhmann Holding GmbH",
+            "registration_id": "529900HKLWYFPNX93K76",
+            "active": true,
+            "jurisdiction": "DE",
+            "registered_address": "Adelheidstraße 16, Friedrichshafen, DE-BW, 88046, DE",
+            "incorporated": "2025-02-19"
+          },
+          "field_status": {
+            "legal_name": "ok",
+            "registration_id": "ok",
+            "active": "ok",
+            "jurisdiction": "ok",
+            "registered_address": "ok",
+            "incorporated": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0xe97bdfaffaa94a0ec3888458db0fb2cb25dabc16dbe25c83b00641ac09e6ccef",
+          "receipt": {
+            "receipt_hash": "0x51b42d03cb3f7e397567f869e3efd5b5e5635444cba3d2829f7363f9ceeaab3d",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5311",
+            "epoch_id": 26
+          },
+          "duration_ms": 10567,
+          "error": null
+        }
+      },
+      {
+        "check": "Sanctions: company",
+        "status": "pass",
+        "summary": "\"Buhmann Holding GmbH\": no match on 13 lists (OFAC SDN, OFAC Consolidated (non-SDN), UK Sanctions List (entities only), …).",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Buhmann Holding GmbH"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "710637",
+          "miner_name": "Sanctions Name Evidence",
+          "result": {
+            "name": "Buhmann Holding GmbH",
+            "matched": false,
+            "matches": null,
+            "lists": [
+              "OFAC SDN",
+              "OFAC Consolidated (non-SDN)",
+              "UK Sanctions List (entities only)",
+              "Canada autonomous sanctions (entities only)",
+              "EU Financial Sanctions (entities only)",
+              "US BIS Entity List (export controls)",
+              "US BIS Military End User List (export controls)",
+              "US BIS Denied Persons List (dated standard export-denial orders)",
+              "UK Sanctions List (ships)",
+              "US BIS Entity List (additional primary-row corroborated records)",
+              "Canada autonomous sanctions (November 5 additional entities)",
+              "Canada autonomous sanctions (corroborated ships)",
+              "Canada autonomous sanctions (November 5 Iranian entity amendment)"
+            ],
+            "match_score": 0
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "missing",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "The response does not include: Matching sanctions-list entries",
+            "Some additional information was omitted from this response."
+          ],
+          "cost_usd": 0.01,
+          "signal_hash": "0x1a20c28e8045285661ae03429bf6011ce305a2b578e29907f56668e2a7d722fc",
+          "receipt": {
+            "receipt_hash": "0xaf8f2fac3c9e1c333e0af4732d39f35b21aa9bd75ab0f641644dfd1abf55ddb7",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "4860",
+            "epoch_id": 26
+          },
+          "duration_ms": 21687,
+          "error": null
+        }
+      },
+      {
+        "check": "Website",
+        "status": "review",
+        "summary": "No website was given for the supplier, so the payment page was not checked.",
+        "purchase": null
+      },
+      {
+        "check": "Adverse media",
+        "status": "pass",
+        "summary": "No risk term next to the supplier’s name in the search answer.",
+        "purchase": {
+          "intent": "WEB_SEARCH_GENERAL",
+          "params": {
+            "query": "Buhmann Holding GmbH fraud sanctions lawsuit investigation"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "9002",
+          "miner_name": "TxLens",
+          "result": {
+            "answer": "A search of available sources shows no record of any fraud, sanctions, lawsuit, or official investigation involving Buhmann Holding GmbH. The company appears only in basic corporate registries, with no reported legal actions.",
+            "sources": [
+              "Buhmann Konstruktionsgesellschaft mbH (https://fusionbase.com/de/data/organization/425fe7b57d5a196e672bb9af4d628279/buhmann-konstruktionsgesellschaft-mbh)",
+              "Investor Fraud Lawsuits | Hagens Berman National Law Firm (https://www.hbsslaw.com/practices/investor-fraud)",
+              "U.S./Canadian Securities Class Actions"
+            ],
+            "brief": "A search of available sources shows no record of any fraud, sanctions, lawsuit, or official investigation involving Buhmann Holding GmbH."
+          },
+          "field_status": {
+            "answer": "ok",
+            "sources": "ok",
+            "brief": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x8b7b1de1916e4c46fae17c1f3e725536d93bd8bbe9c5db1c0feb3be15980ba28",
+          "receipt": {
+            "receipt_hash": "0x4214e7a730066877a640a3bced384c5199606cc227f6c9f326ab984020bcd152",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6121",
+            "epoch_id": 26
+          },
+          "duration_ms": 4441,
+          "error": null
+        }
+      }
+    ],
+    "paid_asks": 3,
+    "cost_usd": 0.03
+  },
+  "reviewer": {
+    "decision": "REVIEW",
+    "changed": false,
+    "from": "REVIEW",
+    "changes": [],
+    "extra_findings": [
+      {
+        "check": "Independent registry (GLEIF)",
+        "status": "review",
+        "summary": "GLEIF shows LEI 529900HKLWYFPNX93K76 for \"Buhmann Holding GmbH\" as LAPSED: its reference data was due for renewal on 2026-11-20 and has not been renewed. The entity is still ACTIVE; ask the supplier to renew before paying.",
+        "purchase": null,
+        "source": "https://search.gleif.org/#/record/529900HKLWYFPNX93K76",
+        "gleif": {
+          "lei": "529900HKLWYFPNX93K76",
+          "legal_name": "Buhmann Holding GmbH",
+          "entity_status": "ACTIVE",
+          "registration_status": "LAPSED",
+          "next_renewal": "2026-11-20T15:50:38Z",
+          "registered_as": "HRB 749712",
+          "source": "https://search.gleif.org/#/record/529900HKLWYFPNX93K76"
+        }
+      }
+    ],
+    "reasons": [
+      "No website was given for the supplier, so the payment page was not checked.",
+      "GLEIF shows LEI 529900HKLWYFPNX93K76 for \"Buhmann Holding GmbH\" as LAPSED: its reference data was due for renewal on 2026-11-20 and has not been renewed. The entity is still ACTIVE; ask the supplier to renew before paying."
+    ],
+    "cost_usd": 0
+  }
+}

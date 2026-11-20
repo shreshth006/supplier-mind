@@ -1,0 +1,325 @@
+{
+  "case": {
+    "name": "Siemens AG",
+    "country": "DE",
+    "officers": [
+      "Roland Busch"
+    ],
+    "website": "https://www.siemens.com",
+    "invoice": {
+      "number": "SI-2026-11-0412",
+      "amount": 48500,
+      "currency": "EUR",
+      "pay_currency": "USD"
+    },
+    "expect": {
+      "decision": "RELEASE",
+      "why": "A listed, active company with a current LEI, no sanctions match for it or its CEO, and its own website."
+    }
+  },
+  "at": "2026-11-20T18:30:35.860Z",
+  "final": "RELEASE",
+  "cost_usd": 0.06,
+  "investigator": {
+    "supplier": "Siemens AG",
+    "decision": "RELEASE",
+    "reasons": [],
+    "findings": [
+      {
+        "check": "Registry record",
+        "status": "pass",
+        "summary": "\"Siemens Aktiengesellschaft\", registration W38RGI023J3WT1HWRP32 is on the registry and active.",
+        "purchase": {
+          "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+          "params": {
+            "company": "Siemens AG",
+            "jurisdiction": "DE"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "20260828",
+          "miner_name": "PREFLIGHT Infrastructure Signals",
+          "result": {
+            "legal_name": "Siemens Aktiengesellschaft",
+            "registration_id": "W38RGI023J3WT1HWRP32",
+            "active": true,
+            "jurisdiction": "DE",
+            "registered_address": "Werner-von-Siemens-Str. 1, München, DE-BY, 80333, DE",
+            "incorporated": "1996-08-27"
+          },
+          "field_status": {
+            "legal_name": "ok",
+            "registration_id": "ok",
+            "active": "ok",
+            "jurisdiction": "ok",
+            "registered_address": "ok",
+            "incorporated": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x945bbbc41434761592f742806c68ee32045a21288c3c406eb7e4a59336dca7ef",
+          "receipt": {
+            "receipt_hash": "0x7c64bbafa22bf288578214cc34457beab63db779af5e7657ee5b58bafe43ebe3",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5311",
+            "epoch_id": 26
+          },
+          "duration_ms": 8844,
+          "error": null
+        }
+      },
+      {
+        "check": "Sanctions: company",
+        "status": "pass",
+        "summary": "\"Siemens AG\": no match on 13 lists (OFAC SDN, OFAC Consolidated (non-SDN), UK Sanctions List (entities only), …).",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Siemens AG"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "710637",
+          "miner_name": "Sanctions Name Evidence",
+          "result": {
+            "name": "Siemens AG",
+            "matched": false,
+            "matches": null,
+            "lists": [
+              "OFAC SDN",
+              "OFAC Consolidated (non-SDN)",
+              "UK Sanctions List (entities only)",
+              "Canada autonomous sanctions (entities only)",
+              "EU Financial Sanctions (entities only)",
+              "US BIS Entity List (export controls)",
+              "US BIS Military End User List (export controls)",
+              "US BIS Denied Persons List (dated standard export-denial orders)",
+              "UK Sanctions List (ships)",
+              "US BIS Entity List (additional primary-row corroborated records)",
+              "Canada autonomous sanctions (November 5 additional entities)",
+              "Canada autonomous sanctions (corroborated ships)",
+              "Canada autonomous sanctions (November 5 Iranian entity amendment)"
+            ],
+            "match_score": 0
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "missing",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "The response does not include: Matching sanctions-list entries",
+            "Some additional information was omitted from this response."
+          ],
+          "cost_usd": 0.01,
+          "signal_hash": "0x2f6d1cc5f4294431498df7082032ec85cc5ec66b75e928e0dcf185dfd685baf1",
+          "receipt": {
+            "receipt_hash": "0x0d005051d25de00a725a93fa9aa224f603143c79bae66d8cc4acddd7cf6bffda",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "4860",
+            "epoch_id": 26
+          },
+          "duration_ms": 17014,
+          "error": null
+        }
+      },
+      {
+        "check": "Sanctions: Roland Busch",
+        "status": "pass",
+        "summary": "\"Roland Busch\": no match on 13 lists (OFAC SDN, OFAC Consolidated (non-SDN), UK Sanctions List (entities only), …).",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Roland Busch"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "710637",
+          "miner_name": "Sanctions Name Evidence",
+          "result": {
+            "name": "Roland Busch",
+            "matched": false,
+            "matches": null,
+            "lists": [
+              "OFAC SDN",
+              "OFAC Consolidated (non-SDN)",
+              "UK Sanctions List (entities only)",
+              "Canada autonomous sanctions (entities only)",
+              "EU Financial Sanctions (entities only)",
+              "US BIS Entity List (export controls)",
+              "US BIS Military End User List (export controls)",
+              "US BIS Denied Persons List (dated standard export-denial orders)",
+              "UK Sanctions List (ships)",
+              "US BIS Entity List (additional primary-row corroborated records)",
+              "Canada autonomous sanctions (November 5 additional entities)",
+              "Canada autonomous sanctions (corroborated ships)",
+              "Canada autonomous sanctions (November 5 Iranian entity amendment)"
+            ],
+            "match_score": 0
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "missing",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "The response does not include: Matching sanctions-list entries",
+            "Some additional information was omitted from this response."
+          ],
+          "cost_usd": 0.01,
+          "signal_hash": "0x61de0f29d94f0e25934c644de0674dafe2be6e6dd9a2181c8ca06580e0a7afad",
+          "receipt": {
+            "receipt_hash": "0xb39d954e0c21fd94d075992d3659151387cd212eedccfc7654a951ab3a64bdcd",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "4860",
+            "epoch_id": 26
+          },
+          "duration_ms": 22578,
+          "error": null
+        }
+      },
+      {
+        "check": "Website",
+        "status": "pass",
+        "summary": "https://www.siemens.com scanned as safe.",
+        "purchase": {
+          "intent": "URL_SCAN_VERDICT",
+          "params": {
+            "url": "https://www.siemens.com"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "safe": true
+          },
+          "field_status": {
+            "safe": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x22ddf0c59b959abe1c7cfa0afd38def3da13f0872cb81cb525182291cf9f3fd7",
+          "receipt": {
+            "receipt_hash": "0x347121332fa30b8605c765d697ca6e5370f320e64476c3be8c4cff4425b9cb3c",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6119",
+            "epoch_id": 26
+          },
+          "duration_ms": 4166,
+          "error": null
+        }
+      },
+      {
+        "check": "Invoice FX",
+        "status": "pass",
+        "summary": "EUR 48,500 is USD 53,301.5 at the rate now.",
+        "purchase": {
+          "intent": "CURRENCY_EXCHANGE_CONVERT",
+          "params": {
+            "from_currency": "EUR",
+            "to_currency": "USD",
+            "amount": 48500
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "7321",
+          "miner_name": "FinWire Currency Exchange",
+          "result": {
+            "converted_amount": 53301.5
+          },
+          "field_status": {
+            "converted_amount": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x1fce77e0541c964ba276c70bee2139a5a11223a51d0faed221054d8c92a46bf0",
+          "receipt": {
+            "receipt_hash": "0x44b90d6847ab21493f96a802464f395297bd4b88f24fe84c44f2e66e84f946a7",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5407",
+            "epoch_id": 26
+          },
+          "duration_ms": 5560,
+          "error": null
+        }
+      },
+      {
+        "check": "Adverse media",
+        "status": "pass",
+        "summary": "Only a matter settled more than 5 years ago, noted for the file: \"In 2008 Siemens AG was investigated for Foreign Corrupt Practices Act violations and settled with the U.S.\"",
+        "purchase": {
+          "intent": "WEB_SEARCH_GENERAL",
+          "params": {
+            "query": "Siemens AG fraud sanctions lawsuit investigation"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "9002",
+          "miner_name": "TxLens",
+          "result": {
+            "answer": "In 2008 Siemens AG was investigated for Foreign Corrupt Practices Act violations and settled with the U.S. Department of Justice and SEC, paying $450 million in criminal fines and $350 million in disgorgement—totaling $800 million in U.S. penalties.",
+            "sources": [
+              "https://www.wilmerhale.com/en/insights/publications/siemens-agrees-to-record-setting-800-million-in-fcpa-penalties-december-22-2008"
+            ],
+            "brief": "In 2008 Siemens AG was investigated for Foreign Corrupt Practices Act violations and settled with the U.S. Department of Justice and SEC, paying $450 million in criminal fines and $350 million in disgorgement—totaling $800 million in U.S. penalties."
+          },
+          "field_status": {
+            "answer": "ok",
+            "sources": "ok",
+            "brief": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0xa4008654034adef170b7cbea7621d1919125c8d13d44cd46caaca1067acb1775",
+          "receipt": {
+            "receipt_hash": "0xaee07ec667816991bd2e1e1c84c0ec43aa9a18024362fabb188e1e247b50be0e",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6121",
+            "epoch_id": 26
+          },
+          "duration_ms": 5006,
+          "error": null
+        }
+      }
+    ],
+    "paid_asks": 6,
+    "cost_usd": 0.06
+  },
+  "reviewer": {
+    "decision": "RELEASE",
+    "changed": false,
+    "from": "RELEASE",
+    "changes": [],
+    "extra_findings": [
+      {
+        "check": "Independent registry (GLEIF)",
+        "status": "pass",
+        "summary": "GLEIF confirms \"Siemens Aktiengesellschaft\" (LEI W38RGI023J3WT1HWRP32): entity ACTIVE, registration ISSUED.",
+        "purchase": null,
+        "source": "https://search.gleif.org/#/record/W38RGI023J3WT1HWRP32",
+        "gleif": {
+          "lei": "W38RGI023J3WT1HWRP32",
+          "legal_name": "Siemens Aktiengesellschaft",
+          "entity_status": "ACTIVE",
+          "registration_status": "ISSUED",
+          "next_renewal": "2027-10-25T12:49:24Z",
+          "registered_as": "HRB 6684",
+          "source": "https://search.gleif.org/#/record/W38RGI023J3WT1HWRP32"
+        }
+      }
+    ],
+    "reasons": [],
+    "cost_usd": 0
+  }
+}

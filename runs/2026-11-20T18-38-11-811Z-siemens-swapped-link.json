@@ -1,0 +1,336 @@
+{
+  "case": {
+    "name": "Siemens AG",
+    "country": "DE",
+    "officers": [
+      "Roland Busch"
+    ],
+    "website": "http://testsafebrowsing.appspot.com/s/phishing.html",
+    "constructed": "A real supplier whose invoice email carried a swapped payment link. The link is Google Safe Browsing's public phishing test page, which every scanner should flag.",
+    "invoice": {
+      "number": "SI-2026-11-0412",
+      "amount": 48500,
+      "currency": "EUR",
+      "pay_currency": "USD"
+    },
+    "expect": {
+      "decision": "HOLD",
+      "why": "The payment link is a known phishing page, whatever the supplier's own record says."
+    }
+  },
+  "at": "2026-11-20T18:38:11.811Z",
+  "final": "REVIEW",
+  "cost_usd": 0.05,
+  "investigator": {
+    "supplier": "Siemens AG",
+    "decision": "REVIEW",
+    "reasons": [
+      "Adverse media: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass."
+    ],
+    "findings": [
+      {
+        "check": "Registry record",
+        "status": "pass",
+        "summary": "\"Siemens Aktiengesellschaft\", registration W38RGI023J3WT1HWRP32 is on the registry and active.",
+        "purchase": {
+          "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+          "params": {
+            "company": "Siemens AG",
+            "jurisdiction": "DE"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "20260828",
+          "miner_name": "PREFLIGHT Infrastructure Signals",
+          "result": {
+            "legal_name": "Siemens Aktiengesellschaft",
+            "registration_id": "W38RGI023J3WT1HWRP32",
+            "active": true,
+            "jurisdiction": "DE",
+            "registered_address": "Werner-von-Siemens-Str. 1, München, DE-BY, 80333, DE",
+            "incorporated": "1996-08-27"
+          },
+          "field_status": {
+            "legal_name": "ok",
+            "registration_id": "ok",
+            "active": "ok",
+            "jurisdiction": "ok",
+            "registered_address": "ok",
+            "incorporated": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x94a4d4e102656d6ed1f1074ac5d26ad3347aa109e1986d4ed9d5fca15bbe6812",
+          "receipt": {
+            "receipt_hash": "0x67eb82999695799a8491987fe84f0b0af264c9622481cff46ee3a7cec0215cc2",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5311",
+            "epoch_id": 26
+          },
+          "duration_ms": 8665,
+          "error": null
+        }
+      },
+      {
+        "check": "Sanctions: company",
+        "status": "pass",
+        "summary": "\"Siemens AG\": no match on 13 lists (OFAC SDN, OFAC Consolidated (non-SDN), UK Sanctions List (entities only), …).",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Siemens AG"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "710637",
+          "miner_name": "Sanctions Name Evidence",
+          "result": {
+            "name": "Siemens AG",
+            "matched": false,
+            "matches": null,
+            "lists": [
+              "OFAC SDN",
+              "OFAC Consolidated (non-SDN)",
+              "UK Sanctions List (entities only)",
+              "Canada autonomous sanctions (entities only)",
+              "EU Financial Sanctions (entities only)",
+              "US BIS Entity List (export controls)",
+              "US BIS Military End User List (export controls)",
+              "US BIS Denied Persons List (dated standard export-denial orders)",
+              "UK Sanctions List (ships)",
+              "US BIS Entity List (additional primary-row corroborated records)",
+              "Canada autonomous sanctions (November 5 additional entities)",
+              "Canada autonomous sanctions (corroborated ships)",
+              "Canada autonomous sanctions (November 5 Iranian entity amendment)"
+            ],
+            "match_score": 0
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "missing",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "The response does not include: Matching sanctions-list entries",
+            "Some additional information was omitted from this response."
+          ],
+          "cost_usd": 0.01,
+          "signal_hash": "0x4e420953c5f011e97e7dbb17055e18f4fb333729508b214007ddd72114cc3030",
+          "receipt": {
+            "receipt_hash": "0xd1066f98547fac000dbf6b977a1b024dd9afbbb677be5024b7531c0fd8eb005a",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "4860",
+            "epoch_id": 26
+          },
+          "duration_ms": 15792,
+          "error": null
+        }
+      },
+      {
+        "check": "Sanctions: Roland Busch",
+        "status": "pass",
+        "summary": "\"Roland Busch\": no match on 13 lists (OFAC SDN, OFAC Consolidated (non-SDN), UK Sanctions List (entities only), …).",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Roland Busch"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "710637",
+          "miner_name": "Sanctions Name Evidence",
+          "result": {
+            "name": "Roland Busch",
+            "matched": false,
+            "matches": null,
+            "lists": [
+              "OFAC SDN",
+              "OFAC Consolidated (non-SDN)",
+              "UK Sanctions List (entities only)",
+              "Canada autonomous sanctions (entities only)",
+              "EU Financial Sanctions (entities only)",
+              "US BIS Entity List (export controls)",
+              "US BIS Military End User List (export controls)",
+              "US BIS Denied Persons List (dated standard export-denial orders)",
+              "UK Sanctions List (ships)",
+              "US BIS Entity List (additional primary-row corroborated records)",
+              "Canada autonomous sanctions (November 5 additional entities)",
+              "Canada autonomous sanctions (corroborated ships)",
+              "Canada autonomous sanctions (November 5 Iranian entity amendment)"
+            ],
+            "match_score": 0
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "missing",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "The response does not include: Matching sanctions-list entries",
+            "Some additional information was omitted from this response."
+          ],
+          "cost_usd": 0.01,
+          "signal_hash": "0x14f63203381decafeb1bc9eba5faf1c0802487b19c9222f31f405ece74a7fd61",
+          "receipt": {
+            "receipt_hash": "0x64f5e7353fdb2961689e3f7ae825719f80277c808e315b939b3775b4412321c9",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "4860",
+            "epoch_id": 26
+          },
+          "duration_ms": 30059,
+          "error": null
+        }
+      },
+      {
+        "check": "Website",
+        "status": "pass",
+        "summary": "http://testsafebrowsing.appspot.com/s/phishing.html scanned as safe.",
+        "purchase": {
+          "intent": "URL_SCAN_VERDICT",
+          "params": {
+            "url": "http://testsafebrowsing.appspot.com/s/phishing.html"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "731006",
+          "miner_name": "Counterproof URL Safety",
+          "result": {
+            "safe": true
+          },
+          "field_status": {
+            "safe": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x24a99b1769512192544c1293333736c4683009690d4d438c322ac198668035b0",
+          "receipt": {
+            "receipt_hash": "0xa80dd56997c08d0cd12c9e3d094d58f11245d7783711df5cf2a28303ca34ff7b",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5297",
+            "epoch_id": 26
+          },
+          "duration_ms": 13122,
+          "error": null
+        }
+      },
+      {
+        "check": "Invoice FX",
+        "status": "pass",
+        "summary": "EUR 48,500 is USD 53,301.5 at the rate now.",
+        "purchase": {
+          "intent": "CURRENCY_EXCHANGE_CONVERT",
+          "params": {
+            "from_currency": "EUR",
+            "to_currency": "USD",
+            "amount": 48500
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "7321",
+          "miner_name": "FinWire Currency Exchange",
+          "result": {
+            "converted_amount": 53301.5
+          },
+          "field_status": {
+            "converted_amount": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0xd94100e3c728eae2e3545671c9c018718d7f119cb71bd57d13250a9242b4c1ba",
+          "receipt": {
+            "receipt_hash": "0xc503c05732b71761d13caf264b6ec17eea257c45bcbe22154e6b8ea60d85d74f",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5407",
+            "epoch_id": 26
+          },
+          "duration_ms": 5181,
+          "error": null
+        }
+      },
+      {
+        "check": "Adverse media",
+        "status": "unanswered",
+        "summary": "Adverse media: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+        "purchase": {
+          "intent": "WEB_SEARCH_GENERAL",
+          "params": {
+            "query": "Siemens AG fraud sanctions lawsuit investigation"
+          },
+          "ok": false,
+          "http_status": 400,
+          "miner_id": null,
+          "miner_name": null,
+          "result": null,
+          "field_status": null,
+          "warnings": null,
+          "cost_usd": null,
+          "signal_hash": null,
+          "receipt": null,
+          "duration_ms": 7844,
+          "error": "Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit."
+        }
+      }
+    ],
+    "paid_asks": 5,
+    "cost_usd": 0.05
+  },
+  "reviewer": {
+    "decision": "REVIEW",
+    "changed": false,
+    "from": "REVIEW",
+    "changes": [],
+    "extra_findings": [
+      {
+        "check": "Payment link domain",
+        "status": "review",
+        "summary": "The payment link is on appspot.com, which is not a domain of \"Siemens AG\": confirm the link with the supplier by a known phone number before paying (the usual sign of a swapped invoice link).",
+        "purchase": null
+      },
+      {
+        "check": "Website, second scanner",
+        "status": "unanswered",
+        "summary": "The second scan gave no usable answer.",
+        "purchase": {
+          "intent": "URL_SCAN_VERDICT",
+          "params": {
+            "url": "http://testsafebrowsing.appspot.com/s/phishing.html"
+          },
+          "ok": false,
+          "error": "fetch failed",
+          "duration_ms": 10500
+        }
+      },
+      {
+        "check": "Independent registry (GLEIF)",
+        "status": "pass",
+        "summary": "GLEIF confirms \"Siemens Aktiengesellschaft\" (LEI W38RGI023J3WT1HWRP32): entity ACTIVE, registration ISSUED.",
+        "purchase": null,
+        "source": "https://search.gleif.org/#/record/W38RGI023J3WT1HWRP32",
+        "gleif": {
+          "lei": "W38RGI023J3WT1HWRP32",
+          "legal_name": "Siemens Aktiengesellschaft",
+          "entity_status": "ACTIVE",
+          "registration_status": "ISSUED",
+          "next_renewal": "2027-10-25T12:49:24Z",
+          "registered_as": "HRB 6684",
+          "source": "https://search.gleif.org/#/record/W38RGI023J3WT1HWRP32"
+        }
+      }
+    ],
+    "reasons": [
+      "Adverse media: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.",
+      "The payment link is on appspot.com, which is not a domain of \"Siemens AG\": confirm the link with the supplier by a known phone number before paying (the usual sign of a swapped invoice link).",
+      "The second scan gave no usable answer."
+    ],
+    "cost_usd": 0
+  }
+}

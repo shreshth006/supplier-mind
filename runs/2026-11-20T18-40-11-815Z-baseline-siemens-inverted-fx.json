@@ -1,0 +1,31 @@
+{
+  "case": {
+    "name": "Siemens AG",
+    "country": "DE",
+    "officers": [
+      "Roland Busch"
+    ],
+    "website": "https://www.siemens.com",
+    "constructed": "The invoice converts EUR to USD with the rate inverted (USD per EUR used as EUR per USD), a common spreadsheet error.",
+    "invoice": {
+      "number": "SI-2026-11-0415",
+      "amount": 10000,
+      "currency": "EUR",
+      "pay_currency": "USD",
+      "pay_amount": 8620
+    },
+    "expect": {
+      "decision": "HOLD",
+      "why": "USD 8,620 is EUR 10,000 at the inverse of the EUR/USD rate, which is roughly a fifth short of the true amount, far outside a 2% tolerance."
+    }
+  },
+  "at": "2026-11-20T18:40:11.815Z",
+  "model": "openai/gpt-oss-120b",
+  "telegraph": false,
+  "decision": "RELEASE",
+  "reasons": [
+    "Known reputable supplier",
+    "Invoice details consistent",
+    "No sanctions or compliance issues"
+  ]
+}

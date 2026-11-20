@@ -1,0 +1,8 @@
+{
+  "name": "Siemens AG",
+  "country": "DE",
+  "officers": ["Roland Busch"],
+  "website": "https://www.siemens.com",
+  "invoice": { "number": "SI-2026-11-0412", "amount": 48500, "currency": "EUR", "pay_currency": "USD" },
+  "expect": { "decision": "RELEASE", "why": "A listed, active company with a current LEI, no sanctions match for it or its CEO, and its own website." }
+}

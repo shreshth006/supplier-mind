@@ -1,0 +1,292 @@
+{
+  "case": {
+    "name": "Garantex Europe OU",
+    "country": "EE",
+    "website": "https://garantex.org",
+    "invoice": {
+      "number": "GX-7781",
+      "amount": 12000,
+      "currency": "EUR",
+      "pay_currency": "USD"
+    },
+    "expect": {
+      "decision": "HOLD",
+      "why": "On the OFAC SDN list since April 2022 (crypto exchange used for laundering)."
+    }
+  },
+  "at": "2026-11-20T18:32:46.774Z",
+  "final": "HOLD",
+  "cost_usd": 0.08,
+  "investigator": {
+    "supplier": "Garantex Europe OU",
+    "decision": "HOLD",
+    "reasons": [
+      "Registry record: no usable answer (empty result), so it is not counted as a pass.",
+      "\"Garantex Europe OU\" matches GARANTEX EUROPE OU on OFAC SDN, OFAC Consolidated (non-SDN).",
+      "A search answer ties the supplier to a risk term, so a person should read it: \"Freezes Garantex Assets, Sanctions Grinex For Facilitating $100M In Illicit Crypto\""
+    ],
+    "findings": [
+      {
+        "check": "Registry record",
+        "status": "unanswered",
+        "summary": "Registry record: no usable answer (empty result), so it is not counted as a pass.",
+        "purchase": {
+          "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+          "params": {
+            "company": "Garantex Europe OU",
+            "jurisdiction": "EE"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "7393",
+          "miner_name": "DataWire Corporate Registry Lookup",
+          "result": {
+            "legal_name": null,
+            "registration_id": null,
+            "active": false,
+            "jurisdiction": "EE",
+            "registered_address": null,
+            "incorporated": null
+          },
+          "field_status": {
+            "legal_name": "missing",
+            "registration_id": "missing",
+            "active": "ok",
+            "jurisdiction": "ok",
+            "registered_address": "missing",
+            "incorporated": "missing"
+          },
+          "warnings": [
+            "The response does not include: Date of incorporation or registration",
+            "The response does not include: Registered legal name",
+            "The response does not include: Registered address",
+            "The response does not include: Registry identifier (LEI, company number, org number)",
+            "Sources returned conflicting information for: as_of",
+            "Sources returned conflicting information for: reason",
+            "Sources returned conflicting information for: summary"
+          ],
+          "cost_usd": 0.02,
+          "signal_hash": "0xe0c8edd2a97870bd56911404e70ef83a84060bd120d52fe68a06a16adf879bb9",
+          "receipt": {
+            "receipt_hash": "0x9f2ba6c4189b2237a29d52af800c7a562f430c2168be2c97e0bc7fdebc567cb9",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "4471",
+            "epoch_id": 26
+          },
+          "duration_ms": 50409,
+          "error": null
+        }
+      },
+      {
+        "check": "Sanctions: company",
+        "status": "fail",
+        "summary": "\"Garantex Europe OU\" matches GARANTEX EUROPE OU on OFAC SDN, OFAC Consolidated (non-SDN).",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Garantex Europe OU"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "710637",
+          "miner_name": "Sanctions Name Evidence",
+          "result": {
+            "name": "Garantex Europe OU",
+            "matched": true,
+            "matches": [
+              "GARANTEX EUROPE OU"
+            ],
+            "lists": [
+              "OFAC SDN",
+              "OFAC Consolidated (non-SDN)",
+              "UK Sanctions List (entities only)",
+              "Canada autonomous sanctions (entities only)",
+              "EU Financial Sanctions (entities only)",
+              "US BIS Entity List (export controls)",
+              "US BIS Military End User List (export controls)",
+              "US BIS Denied Persons List (dated standard export-denial orders)",
+              "UK Sanctions List (ships)",
+              "US BIS Entity List (additional primary-row corroborated records)",
+              "Canada autonomous sanctions (November 5 additional entities)",
+              "Canada autonomous sanctions (corroborated ships)",
+              "Canada autonomous sanctions (November 5 Iranian entity amendment)"
+            ],
+            "match_score": 1
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "ok",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "Sources returned conflicting information for: lists",
+            "Sources returned conflicting information for: match_type",
+            "Sources returned conflicting information for: name",
+            "Sources returned conflicting information for: source_url",
+            "Sources returned conflicting information for: summary",
+            "Sources returned conflicting information for: attribution",
+            "Sources returned conflicting information for: record_url",
+            "Sources returned conflicting information for: source",
+            "Sources returned conflicting information for: additional_published_names",
+            "Sources returned conflicting information for: corroboration_url",
+            "Sources returned conflicting information for: scope",
+            "Some additional information was omitted from this response."
+          ],
+          "cost_usd": 0.02,
+          "signal_hash": "0xe83b0f873e6550c890ce1317f88d89b2857fc1e0742d1d85740d5d6fd69ae727",
+          "receipt": {
+            "receipt_hash": "0x0bf9381d2c91fc442694f5f7843425baf6821277dda05d1685029e626e0d02e1",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "4860",
+            "epoch_id": 26
+          },
+          "duration_ms": 43539,
+          "error": null
+        }
+      },
+      {
+        "check": "Website",
+        "status": "pass",
+        "summary": "https://garantex.org scanned as safe.",
+        "purchase": {
+          "intent": "URL_SCAN_VERDICT",
+          "params": {
+            "url": "https://garantex.org"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "safe": true
+          },
+          "field_status": {
+            "safe": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0xa8191b545a0fbee45a8fca79a92f3a9a532ae9bf6657d1cf6aa996b70c1ac1da",
+          "receipt": {
+            "receipt_hash": "0xad70fbfb3d779d3f084003c32780d9a34e8546727ebbd867dd7373c70f4110d9",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6119",
+            "epoch_id": 26
+          },
+          "duration_ms": 5936,
+          "error": null
+        }
+      },
+      {
+        "check": "Invoice FX",
+        "status": "pass",
+        "summary": "EUR 12,000 is USD 13,188 at the rate now.",
+        "purchase": {
+          "intent": "CURRENCY_EXCHANGE_CONVERT",
+          "params": {
+            "from_currency": "EUR",
+            "to_currency": "USD",
+            "amount": 12000
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "7321",
+          "miner_name": "FinWire Currency Exchange",
+          "result": {
+            "converted_amount": 13188
+          },
+          "field_status": {
+            "converted_amount": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0xfa8979955c3be64cf9cb237e41eaeceab4983fd9d9bcef8eecbd53c7009fbbab",
+          "receipt": {
+            "receipt_hash": "0xc605e7d075409a89b7f487a62813dfaa650d39022ea6257a4012b3ba28754c34",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5407",
+            "epoch_id": 26
+          },
+          "duration_ms": 4778,
+          "error": null
+        }
+      },
+      {
+        "check": "Adverse media",
+        "status": "review",
+        "summary": "A search answer ties the supplier to a risk term, so a person should read it: \"Freezes Garantex Assets, Sanctions Grinex For Facilitating $100M In Illicit Crypto\"",
+        "purchase": {
+          "intent": "WEB_SEARCH_GENERAL",
+          "params": {
+            "query": "Garantex Europe OU fraud sanctions lawsuit investigation"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "9002",
+          "miner_name": "TxLens",
+          "result": {
+            "answer": "U.S. Freezes Garantex Assets, Sanctions Grinex For Facilitating $100M In Illicit Crypto",
+            "sources": [
+              "wikipedia+web"
+            ],
+            "brief": "The European Union imposed sanctions on Garantex Europe OU in March 2025 following an investigation by Eesti Ekspress and the International Consortium of Investigative Journalists."
+          },
+          "field_status": {
+            "answer": "ok",
+            "sources": "ok",
+            "brief": "ok"
+          },
+          "warnings": [
+            "Sources returned conflicting information for: answer",
+            "Sources returned conflicting information for: extract",
+            "Sources returned conflicting information for: title",
+            "Sources returned conflicting information for: url",
+            "Sources returned conflicting information for: summary",
+            "Sources returned conflicting information for: amount",
+            "Sources returned conflicting information for: score",
+            "Sources returned conflicting information for: snippet"
+          ],
+          "cost_usd": 0.02,
+          "signal_hash": "0x8f2f5790158a1ab2c951c8a59d8c171ba21016b8dd8a90366e5fa38aea8037ab",
+          "receipt": {
+            "receipt_hash": "0xe9e5b669380df743fc967397c583e31dfee857d548a5b0e946420748998959d8",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6121",
+            "epoch_id": 26
+          },
+          "duration_ms": 17511,
+          "error": null
+        }
+      }
+    ],
+    "paid_asks": 5,
+    "cost_usd": 0.08
+  },
+  "reviewer": {
+    "decision": "HOLD",
+    "changed": false,
+    "from": "HOLD",
+    "changes": [],
+    "extra_findings": [
+      {
+        "check": "Independent registry (GLEIF)",
+        "status": "review",
+        "summary": "GLEIF has no LEI record for \"Garantex Europe OU\", so the registry answer has no independent confirmation.",
+        "purchase": null
+      }
+    ],
+    "reasons": [
+      "Registry record: no usable answer (empty result), so it is not counted as a pass.",
+      "\"Garantex Europe OU\" matches GARANTEX EUROPE OU on OFAC SDN, OFAC Consolidated (non-SDN).",
+      "A search answer ties the supplier to a risk term, so a person should read it: \"Freezes Garantex Assets, Sanctions Grinex For Facilitating $100M In Illicit Crypto\"",
+      "GLEIF has no LEI record for \"Garantex Europe OU\", so the registry answer has no independent confirmation."
+    ],
+    "cost_usd": 0
+  }
+}

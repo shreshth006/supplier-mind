@@ -1,0 +1,27 @@
+{
+  "case": {
+    "name": "Garantex Europe OU",
+    "country": "EE",
+    "website": "https://garantex.org",
+    "invoice": {
+      "number": "GX-7781",
+      "amount": 12000,
+      "currency": "EUR",
+      "pay_currency": "USD"
+    },
+    "expect": {
+      "decision": "HOLD",
+      "why": "On the OFAC SDN list since April 2022 (crypto exchange used for laundering)."
+    }
+  },
+  "at": "2026-11-20T18:40:04.609Z",
+  "model": "openai/gpt-oss-120b",
+  "telegraph": false,
+  "decision": "REVIEW",
+  "reasons": [
+    "foreign supplier (Estonia)",
+    "invoice currency EUR vs payment currency USD",
+    "potential crypto‑related business",
+    "moderate amount requires verification"
+  ]
+}

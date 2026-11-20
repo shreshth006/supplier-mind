@@ -1,0 +1,197 @@
+/**
+ * The Investigator: before a supplier is paid, buy each check through Anjoman and judge
+ * it by a written rule. Every finding keeps the Provider, price and receipt it came from.
+ *
+ *   pass        the evidence clears this check
+ *   fail        the evidence blocks payment (sanctions match, unsafe site, FX off, inactive)
+ *   review      a person should look (name differs, adverse media, provider caveat)
+ *   unanswered  no usable answer came back; never counted as a pass
+ *
+ * Decision: any fail -> HOLD; any review or unanswered -> REVIEW; otherwise RELEASE.
+ */
+import { ask } from './anjoman.mjs';
+
+/** Legal-form words written either way: "AG" and "Aktiengesellschaft" are the same name. */
+const FORMS = [
+  [/\baktiengesellschaft\b/g, 'ag'],
+  [/\bgesellschaft mit beschr(a|ä)nkter haftung\b/g, 'gmbh'],
+  [/\blimited\b/g, 'ltd'],
+  [/\bincorporated\b/g, 'inc'],
+  [/\bcorporation\b/g, 'corp'],
+  [/\bosa(u|ü)hing\b/g, 'as'],
+  [/\bo(u|ü)\b/g, 'ou'],
+];
+export function sameName(a, b) {
+  const norm = (s) => {
+    let t = String(s ?? '')
+      .toLowerCase()
+      .normalize('NFKD')
+      .replace(/[̀-ͯ]/g, '');
+    for (const [re, to] of FORMS) t = t.replace(re, to);
+    return t.replace(/[^a-z0-9]+/g, ' ').trim();
+  };
+  return norm(a) !== '' && norm(a) === norm(b);
+}
+
+const finding = (check, status, summary, purchase) => ({ check, status, summary, purchase });
+
+function unanswered(check, p) {
+  return finding(check, 'unanswered', `${check}: no usable answer (${p.error ?? 'empty result'}), so it is not counted as a pass.`, p);
+}
+
+async function registry(c) {
+  const p = await ask('CORPORATE_REGISTRY_LOOKUP_GENERAL', {
+    company: c.name,
+    ...(c.country ? { jurisdiction: c.country } : {}),
+  });
+  const r = p.result;
+  if (!p.ok || !r?.legal_name) return unanswered('Registry record', p);
+  const id = r.registration_id ? `, registration ${r.registration_id}` : '';
+  if (r.active === false)
+    return finding('Registry record', 'fail', `The registry shows "${r.legal_name}"${id} as not active.`, p);
+  if (!sameName(r.legal_name, c.name))
+    return finding(
+      'Registry record',
+      'review',
+      `The closest registry record is "${r.legal_name}"${id}, not "${c.name}": confirm it is the same company before paying it.`,
+      p,
+    );
+  return finding('Registry record', 'pass', `"${r.legal_name}"${id} is on the registry and active.`, p);
+}
+
+async function sanctions(name, label) {
+  const check = `Sanctions: ${label}`;
+  const p = await ask('SANCTIONS_SCREENING_MATCH_GENERAL', { name });
+  const r = p.result;
+  if (!p.ok || typeof r?.matched !== 'boolean') return unanswered(check, p);
+  const lists = Array.isArray(r.lists) ? r.lists : [];
+  if (r.matched)
+    return finding(
+      check,
+      'fail',
+      `"${name}" matches ${(r.matches ?? []).slice(0, 2).join(', ') || 'a listed name'} on ${lists.slice(0, 2).join(', ') || 'a sanctions list'}.`,
+      p,
+    );
+  if (!lists.length) return finding(check, 'review', `"${name}": no match, but the answer names no list it searched.`, p);
+  return finding(check, 'pass', `"${name}": no match on ${lists.length} lists (${lists.slice(0, 3).join(', ')}, …).`, p);
+}
+
+async function website(c) {
+  if (!c.website) return finding('Website', 'review', 'No website was given for the supplier, so the payment page was not checked.', null);
+  const p = await ask('URL_SCAN_VERDICT', { url: c.website });
+  const r = p.result;
+  const safe = scanVerdict(r);
+  if (!p.ok || safe === null) return unanswered('Website', p);
+  return safe
+    ? finding('Website', 'pass', `${c.website} scanned as safe.`, p)
+    : finding('Website', 'fail', `${c.website} scanned as unsafe: do not pay through it.`, p);
+}
+
+async function fx(c) {
+  const inv = c.invoice;
+  if (!inv?.currency || !inv?.pay_currency || inv.currency === inv.pay_currency || !inv.amount) return null;
+  const p = await ask('CURRENCY_EXCHANGE_CONVERT', {
+    from_currency: inv.currency,
+    to_currency: inv.pay_currency,
+    amount: inv.amount,
+  });
+  const got = Number(p.result?.converted_amount);
+  if (!p.ok || !Number.isFinite(got)) return unanswered('Invoice FX', p);
+  const fmt = (n, cur) => `${cur} ${Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 })}`;
+  if (inv.pay_amount === undefined)
+    return finding('Invoice FX', 'pass', `${fmt(inv.amount, inv.currency)} is ${fmt(got, inv.pay_currency)} at the rate now.`, p);
+  const off = (inv.pay_amount - got) / got;
+  const pct = `${(off * 100).toFixed(1)}%`;
+  return Math.abs(off) > 0.02
+    ? finding(
+        'Invoice FX',
+        'fail',
+        `The invoice asks ${fmt(inv.pay_amount, inv.pay_currency)} for ${fmt(inv.amount, inv.currency)}, but that is ${fmt(got, inv.pay_currency)} now: ${pct} off, beyond the 2% tolerance.`,
+        p,
+      )
+    : finding('Invoice FX', 'pass', `${fmt(inv.pay_amount, inv.pay_currency)} matches ${fmt(got, inv.pay_currency)} now (${pct}).`, p);
+}
+
+/** Adverse media older than this, and settled, is noted rather than blocking. */
+export const LOOKBACK_YEARS = 5;
+
+const RISK = /\b(fraud|sanction(?:ed|s)?|money laundering|launder|indict|charged|convicted|settle(?:d|ment)|fine[ds]?|bribery|corruption|investigation|lawsuit|ponzi|scam|insolven|bankrupt)/i;
+
+/** "shows no record of any fraud ... involving X" reports an absence, not a risk. */
+const NEGATED = /\b(no (?:record|records|evidence|reports?|mention|indication|findings?)|not (?:found|linked|associated|involved)|none (?:found|reported)|without any)\b/i;
+
+/** A scanner's verdict in any of the shapes Providers answer with: safe, risk or prose. */
+export function scanVerdict(r) {
+  if (typeof r?.safe === 'boolean') return r.safe;
+  if (typeof r?.risk === 'number') return r.risk < 0.5;
+  const t = typeof r?.answer === 'string' ? r.answer : '';
+  if (/\b(unsafe|malicious|phishing|dangerous|not safe)\b/i.test(t)) return false;
+  if (/\bsafe\b/i.test(t)) return true;
+  return null;
+}
+
+async function adverseMedia(c) {
+  const p = await ask('WEB_SEARCH_GENERAL', { query: `${c.name} fraud sanctions lawsuit investigation` });
+  const answer = typeof p.result?.answer === 'string' ? p.result.answer : '';
+  if (!p.ok || !answer) return unanswered('Adverse media', p);
+  const word = c.name.split(/\s+/)[0].toLowerCase();
+  const hits = answer
+    .split(/(?<=[.!?])\s+/)
+    .filter((s) => RISK.test(s) && s.toLowerCase().includes(word) && !NEGATED.test(s));
+  // Lookback window: a matter that was settled or closed more than LOOKBACK_YEARS ago is
+  // noted on the memo but does not stop payment; anything recent, open or undated does.
+  const year = new Date().getUTCFullYear();
+  const old = (s) => {
+    const years = [...s.matchAll(/\b(19|20)\d{2}\b/g)].map((m) => Number(m[0]));
+    return (
+      years.length > 0 &&
+      Math.max(...years) <= year - LOOKBACK_YEARS &&
+      /\b(settled|settlement|resolved|closed|concluded|paid)\b/i.test(s) &&
+      !/\b(ongoing|pending|currently|still|open)\b/i.test(s)
+    );
+  };
+  const hit = hits.find((s) => !old(s));
+  if (!hit && hits.length)
+    return finding(
+      'Adverse media',
+      'pass',
+      `Only a matter settled more than ${LOOKBACK_YEARS} years ago, noted for the file: "${hits[0].slice(0, 220)}"`,
+      p,
+    );
+  return hit
+    ? finding('Adverse media', 'review', `A search answer ties the supplier to a risk term, so a person should read it: "${hit.slice(0, 220)}"`, p)
+    : finding('Adverse media', 'pass', 'No risk term next to the supplier’s name in the search answer.', p);
+}
+
+export function decide(findings) {
+  if (findings.some((f) => f.status === 'fail')) return 'HOLD';
+  if (findings.some((f) => f.status === 'review' || f.status === 'unanswered')) return 'REVIEW';
+  return 'RELEASE';
+}
+
+export async function investigate(c) {
+  // One ask at a time: asks paid from the same escrow account at the same moment were
+  // rejected by the facilitator ("Payment was rejected"), while the same asks in turn pass.
+  const steps = [
+    () => registry(c),
+    () => sanctions(c.name, 'company'),
+    ...(c.officers ?? []).map((o) => () => sanctions(o, o)),
+    () => website(c),
+    () => fx(c),
+    () => adverseMedia(c),
+  ];
+  const findings = [];
+  for (const step of steps) {
+    const f = await step();
+    if (f) findings.push(f);
+  }
+  const cost = findings.reduce((s, f) => s + (Number(f.purchase?.cost_usd) || 0), 0);
+  return {
+    supplier: c.name,
+    decision: decide(findings),
+    reasons: findings.filter((f) => f.status !== 'pass').map((f) => f.summary),
+    findings,
+    paid_asks: findings.filter((f) => f.purchase?.receipt).length,
+    cost_usd: Math.round(cost * 100) / 100,
+  };
+}

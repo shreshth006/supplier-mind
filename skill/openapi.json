@@ -1,0 +1,193 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Anjoman (Telegraph) for a Mind",
+    "version": "1.0.0",
+    "description": "Buy specialist checks through Telegraph with one Anjoman API key. Send it as a Bearer token from the Mind's private credentials."
+  },
+  "servers": [
+    {
+      "url": "https://backend.telegraphprotocol.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "anjoman": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "anjoman": []
+    }
+  ],
+  "paths": {
+    "/engine/ask": {
+      "post": {
+        "operationId": "askIntent",
+        "summary": "One named check; returns the answer and its escrow receipt.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "intent",
+                  "params"
+                ],
+                "properties": {
+                  "intent": {
+                    "type": "string",
+                    "example": "SANCTIONS_SCREENING_MATCH_GENERAL"
+                  },
+                  "params": {
+                    "type": "object",
+                    "example": {
+                      "name": "Siemens AG"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "result (miner_name, result, cost_usd_total, signal_hash) and receipt (receipt_hash)"
+          }
+        }
+      }
+    },
+    "/engine/ask/{minerId}": {
+      "post": {
+        "operationId": "askProvider",
+        "summary": "The same check asked of one named Provider, for a second opinion.",
+        "parameters": [
+          {
+            "name": "minerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "intent",
+                  "params"
+                ],
+                "properties": {
+                  "intent": {
+                    "type": "string"
+                  },
+                  "params": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "result and receipt"
+          }
+        }
+      }
+    },
+    "/agent/chat": {
+      "post": {
+        "operationId": "chat",
+        "summary": "An open question the agent plans and buys. 202 or status running: poll getJob.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "message"
+                ],
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "maxLength": 2000
+                  },
+                  "stream": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "maxSpendUsd": {
+                    "type": "number",
+                    "maximum": 100,
+                    "default": 0.25
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "jobId, answer, status (complete, partial, failed, unsupported), sources, costUsd"
+          },
+          "202": {
+            "description": "status running with jobId: poll getJob"
+          }
+        }
+      }
+    },
+    "/agent/jobs/{jobId}": {
+      "get": {
+        "operationId": "getJob",
+        "summary": "A job's status and answer; poll every 5 s while running.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "status, outcome, reason, answer, costUsd"
+          }
+        }
+      }
+    },
+    "/agent/spend": {
+      "get": {
+        "operationId": "spend",
+        "summary": "Recent jobs with their costs.",
+        "responses": {
+          "200": {
+            "description": "jobs and totals"
+          }
+        }
+      }
+    },
+    "/engine/escrow/balance": {
+      "get": {
+        "operationId": "balance",
+        "summary": "effectiveBalance in test USDC; keep above about 0.26.",
+        "responses": {
+          "200": {
+            "description": "effectiveBalance, escrowBalance, agentDebt"
+          }
+        }
+      }
+    }
+  }
+}

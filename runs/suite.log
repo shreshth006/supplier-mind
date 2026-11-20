@@ -1,0 +1,126 @@
+
+Siemens AG  (siemens.json)
+Investigator: RELEASE
+  [ok  ] Registry record · PREFLIGHT Infrastructure Signals · $0.01 · 0x7c64bbafa2
+         "Siemens Aktiengesellschaft", registration W38RGI023J3WT1HWRP32 is on the registry and active.
+  [ok  ] Sanctions: company · Sanctions Name Evidence · $0.01 · 0x0d005051d2
+         "Siemens AG": no match on 13 lists (OFAC SDN, OFAC Consolidated (non-SDN), UK Sanctions List (entities only), …).
+  [ok  ] Sanctions: Roland Busch · Sanctions Name Evidence · $0.01 · 0xb39d954e0c
+         "Roland Busch": no match on 13 lists (OFAC SDN, OFAC Consolidated (non-SDN), UK Sanctions List (entities only), …).
+  [ok  ] Website · ChainSight — Universal Intelligence & Data Oracle · $0.01 · 0x347121332f
+         https://www.siemens.com scanned as safe.
+  [ok  ] Invoice FX · FinWire Currency Exchange · $0.01 · 0x44b90d6847
+         EUR 48,500 is USD 53,301.5 at the rate now.
+  [ok  ] Adverse media · TxLens · $0.01 · 0xaee07ec667
+         Only a matter settled more than 5 years ago, noted for the file: "In 2008 Siemens AG was investigated for Foreign Corrupt Practices Act violations and settled with the U.S."
+Reviewer: RELEASE (agrees)
+  [ok  ] Independent registry (GLEIF) · https://search.gleif.org/#/record/W38RGI023J3WT1HWRP32
+         GLEIF confirms "Siemens Aktiengesellschaft" (LEI W38RGI023J3WT1HWRP32): entity ACTIVE, registration ISSUED.
+FINAL: RELEASE · $0.06 · 66.7 s matches
+wrote runs/2026-11-20T18-30-35-860Z-siemens.json
+
+Garantex Europe OU  (garantex.json)
+Investigator: HOLD
+  [??  ] Registry record · DataWire Corporate Registry Lookup · $0.02 · 0x9f2ba6c418
+         Registry record: no usable answer (empty result), so it is not counted as a pass.
+  [FAIL] Sanctions: company · Sanctions Name Evidence · $0.02 · 0x0bf9381d2c
+         "Garantex Europe OU" matches GARANTEX EUROPE OU on OFAC SDN, OFAC Consolidated (non-SDN).
+  [ok  ] Website · ChainSight — Universal Intelligence & Data Oracle · $0.01 · 0xad70fbfb3d
+         https://garantex.org scanned as safe.
+  [ok  ] Invoice FX · FinWire Currency Exchange · $0.01 · 0xc605e7d075
+         EUR 12,000 is USD 13,188 at the rate now.
+  [look] Adverse media · TxLens · $0.02 · 0xe9e5b66938
+         A search answer ties the supplier to a risk term, so a person should read it: "Freezes Garantex Assets, Sanctions Grinex For Facilitating $100M In Illicit Crypto"
+Reviewer: HOLD (agrees)
+  [look] Independent registry (GLEIF)
+         GLEIF has no LEI record for "Garantex Europe OU", so the registry answer has no independent confirmation.
+FINAL: HOLD · $0.08 · 130.9 s matches
+wrote runs/2026-11-20T18-32-46-774Z-garantex.json
+
+Renova Group  (renova-officer.json)
+Investigator: HOLD
+  [??  ] Registry record
+         Registry record: no usable answer (<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en-US"> <!), so it is not counted as a pass.
+  [FAIL] Sanctions: company · Sanctions Name Evidence · $0.02 · 0xc5481eb56a
+         "Renova Group" matches RENOVA GROUP on OFAC SDN, OFAC Consolidated (non-SDN).
+  [FAIL] Sanctions: Viktor Vekselberg · Sanctions Name Evidence · $0.02 · 0x951a713bca
+         "Viktor Vekselberg" matches {"match_type":"individual","matched_alias":"VEKSELBERG, Victor","matched_name":"VEKSELBERG, Viktor Feliksovich","matched_via":"alias","programs":"UKRAINE-EO13662] [RUSSIA-EO14024","sdn_uid":"24306","similarity_score":0.9} on OFAC SDN, OFAC Consolidated (non-SDN).
+  [look] Website
+         No website was given for the supplier, so the payment page was not checked.
+  [ok  ] Invoice FX · FinWire Currency Exchange · $0.01 · 0x28e2645a4e
+         EUR 30,000 is USD 32,970 at the rate now.
+  [look] Adverse media · TxLens · $0.01 · 0x40f7e23025
+         A search answer ties the supplier to a risk term, so a person should read it: "Justice Department has filed a civil fraud lawsuit accusing Renova Group, founded by Viktor Vekselberg, of violating sanctions by routing payments through its affiliate Columbus Nova."
+Reviewer: HOLD (agrees)
+  [look] Independent registry (GLEIF) · https://search.gleif.org/#/record/9845008C98CF6154D896
+         GLEIF's record is for "RENOVA GROUP S.R.L." (LEI 9845008C98CF6154D896), not "Renova Group", so it does not confirm the supplier.
+FINAL: HOLD · $0.06 · 187.5 s matches
+wrote runs/2026-11-20T18-35-54-263Z-renova-officer.json
+
+Buhmann Holding GmbH  (buhmann-lapsed-lei.json)
+Investigator: REVIEW
+  [ok  ] Registry record · PREFLIGHT Infrastructure Signals · $0.01 · 0x51b42d03cb
+         "Buhmann Holding GmbH", registration 529900HKLWYFPNX93K76 is on the registry and active.
+  [ok  ] Sanctions: company · Sanctions Name Evidence · $0.01 · 0xaf8f2fac3c
+         "Buhmann Holding GmbH": no match on 13 lists (OFAC SDN, OFAC Consolidated (non-SDN), UK Sanctions List (entities only), …).
+  [look] Website
+         No website was given for the supplier, so the payment page was not checked.
+  [ok  ] Adverse media · TxLens · $0.01 · 0x4214e7a730
+         No risk term next to the supplier’s name in the search answer.
+Reviewer: REVIEW (agrees)
+  [look] Independent registry (GLEIF) · https://search.gleif.org/#/record/529900HKLWYFPNX93K76
+         GLEIF shows LEI 529900HKLWYFPNX93K76 for "Buhmann Holding GmbH" as LAPSED: its reference data was due for renewal on 2026-11-20 and has not been renewed. The entity is still ACTIVE; ask the supplier to renew before paying.
+FINAL: REVIEW · $0.03 · 38.6 s matches
+wrote runs/2026-11-20T18-36-32-852Z-buhmann-lapsed-lei.json
+
+Siemens AG  (siemens-swapped-link.json)
+Investigator: REVIEW
+  [ok  ] Registry record · PREFLIGHT Infrastructure Signals · $0.01 · 0x67eb829996
+         "Siemens Aktiengesellschaft", registration W38RGI023J3WT1HWRP32 is on the registry and active.
+  [ok  ] Sanctions: company · Sanctions Name Evidence · $0.01 · 0xd1066f9854
+         "Siemens AG": no match on 13 lists (OFAC SDN, OFAC Consolidated (non-SDN), UK Sanctions List (entities only), …).
+  [ok  ] Sanctions: Roland Busch · Sanctions Name Evidence · $0.01 · 0x64f5e7353f
+         "Roland Busch": no match on 13 lists (OFAC SDN, OFAC Consolidated (non-SDN), UK Sanctions List (entities only), …).
+  [ok  ] Website · Counterproof URL Safety · $0.01 · 0xa80dd56997
+         http://testsafebrowsing.appspot.com/s/phishing.html scanned as safe.
+  [ok  ] Invoice FX · FinWire Currency Exchange · $0.01 · 0xc503c05732
+         EUR 48,500 is USD 53,301.5 at the rate now.
+  [??  ] Adverse media
+         Adverse media: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.
+Reviewer: REVIEW (agrees)
+  [look] Payment link domain
+         The payment link is on appspot.com, which is not a domain of "Siemens AG": confirm the link with the supplier by a known phone number before paying (the usual sign of a swapped invoice link).
+  [??  ] Website, second scanner
+         The second scan gave no usable answer.
+  [ok  ] Independent registry (GLEIF) · https://search.gleif.org/#/record/W38RGI023J3WT1HWRP32
+         GLEIF confirms "Siemens Aktiengesellschaft" (LEI W38RGI023J3WT1HWRP32): entity ACTIVE, registration ISSUED.
+FINAL: REVIEW · $0.05 · 99.0 s differs from expected HOLD
+wrote runs/2026-11-20T18-38-11-811Z-siemens-swapped-link.json
+
+Siemens AG  (siemens-inverted-fx.json)
+Investigator: REVIEW
+  [??  ] Registry record
+         Registry record: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.
+  [??  ] Sanctions: company
+         Sanctions: company: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.
+  [??  ] Sanctions: Roland Busch
+         Sanctions: Roland Busch: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.
+  [??  ] Website
+         Website: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.
+  [??  ] Invoice FX
+         Invoice FX: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.
+  [??  ] Adverse media
+         Adverse media: no usable answer (Insufficient escrow balance: you have $0.250000 effective, this call costs $0.260000. Deposit more via /engine/escrow/deposit.), so it is not counted as a pass.
+Reviewer: REVIEW (agrees)
+  [ok  ] Website, second scanner · ChainSight — Universal Intelligence & Data Oracle · $0.01 · 0x5e03b1a5e6
+         A second scanner (ChainSight — Universal Intelligence & Data Oracle) also calls https://www.siemens.com safe.
+  [look] Independent registry (GLEIF) · https://search.gleif.org/#/record/5299004MG7BJU2QS6Q75
+         GLEIF's record is for "Siemens Energy AG" (LEI 5299004MG7BJU2QS6Q75), not "Siemens AG", so it does not confirm the supplier.
+FINAL: REVIEW · $0.01 · 41.8 s differs from expected HOLD
+wrote runs/2026-11-20T18-38-53-605Z-siemens-inverted-fx.json
+
+escrow: 0.55 -> 0.24 USDC (charges can settle a little later)
