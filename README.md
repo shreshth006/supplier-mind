@@ -26,7 +26,7 @@ given the same case and no checks. "With Telegraph" is the Investigator and the 
 | Garantex Europe OU, OFAC SDN | HOLD | REVIEW ✗ ("potential crypto-related business") | **HOLD ✓**, SDN match | $0.08 |
 | Renova Group, sanctioned chairman | HOLD | HOLD ✓ | **HOLD ✓**, company and Vekselberg on the SDN list | $0.06 |
 | Buhmann Holding GmbH, LEI lapsed today | REVIEW | RELEASE ✗ | **REVIEW ✓**, GLEIF shows the LEI lapsed | $0.03 |
-| Siemens AG, swapped payment link (phishing test page) | HOLD | REVIEW (read "phishing" in the URL) | REVIEW, not HOLD: escrow ran out before the second scanner | $0.05 |
+| Siemens AG, swapped payment link (phishing test page) | HOLD | REVIEW (read "phishing" in the URL) | REVIEW, not HOLD: the second scanner's call failed ("fetch failed") and the escrow then ran out | $0.05 |
 | Siemens AG, invoice FX inverted | HOLD | RELEASE ✗ | not run: escrow ran out | – |
 
 Without Telegraph: **2 of 6**, and two invoices it would have paid (a lapsed LEI, an
