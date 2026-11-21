@@ -1,0 +1,359 @@
+{
+  "case": {
+    "name": "Siemens AG",
+    "country": "DE",
+    "officers": [
+      "Roland Busch"
+    ],
+    "website": "http://testsafebrowsing.appspot.com/s/phishing.html",
+    "constructed": "A real supplier whose invoice email carried a swapped payment link. The link is Google Safe Browsing's public phishing test page, which every scanner should flag.",
+    "invoice": {
+      "number": "SI-2026-11-0412",
+      "amount": 48500,
+      "currency": "EUR",
+      "pay_currency": "USD"
+    },
+    "expect": {
+      "decision": "HOLD",
+      "why": "The payment link is a known phishing page, whatever the supplier's own record says."
+    }
+  },
+  "at": "2026-11-21T19:15:54.643Z",
+  "final": "HOLD",
+  "cost_usd": 0.09,
+  "investigator": {
+    "supplier": "Siemens AG",
+    "decision": "REVIEW",
+    "reasons": [
+      "Adverse media: no usable answer (empty result), so it is not counted as a pass."
+    ],
+    "findings": [
+      {
+        "check": "Registry record",
+        "status": "pass",
+        "summary": "\"Siemens Aktiengesellschaft\", registration HRB 6684 is on the registry and active.",
+        "purchase": {
+          "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+          "params": {
+            "company": "Siemens AG",
+            "jurisdiction": "DE"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "20260828",
+          "miner_name": "PREFLIGHT Infrastructure Signals",
+          "result": {
+            "legal_name": "Siemens Aktiengesellschaft",
+            "registration_id": "HRB 6684",
+            "active": true,
+            "jurisdiction": "DE",
+            "registered_address": "Werner-von-Siemens-Str. 1, München, DE-BY, 80333, DE",
+            "incorporated": "1996-08-27"
+          },
+          "field_status": {
+            "legal_name": "ok",
+            "registration_id": "ok",
+            "active": "ok",
+            "jurisdiction": "ok",
+            "registered_address": "ok",
+            "incorporated": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x8e78ae5ed25dc2b197495eb7371851f36bcbc2774ca536ec4b59c27864eebd27",
+          "receipt": {
+            "receipt_hash": "0x31d3cec7c3b8f4097c69643f09453ba7c051112a26455e8288ea11c9083a8a08",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5311",
+            "epoch_id": 33
+          },
+          "duration_ms": 6960,
+          "error": null
+        }
+      },
+      {
+        "check": "Sanctions: company",
+        "status": "pass",
+        "summary": "\"Siemens AG\": no match on 1 lists (OFAC SDN, …).",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Siemens AG"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "name": "Siemens AG",
+            "matched": false,
+            "matches": null,
+            "lists": [
+              "OFAC SDN"
+            ],
+            "match_score": 0
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "missing",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "The response does not include: Matching sanctions-list entries",
+            "Sources returned conflicting information for: answer",
+            "Sources returned conflicting information for: source",
+            "Sources returned conflicting information for: lists",
+            "Sources returned conflicting information for: summary"
+          ],
+          "cost_usd": 0.02,
+          "signal_hash": "0xe1d0e0ec2783ed812c480906f50b3490f70796327901b7c12d4e7c97897b1602",
+          "receipt": {
+            "receipt_hash": "0xb03b7f26bf9cd2f051ca42e1690ee7380b4c810597a5611b6a23d2cba158d32f",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6119",
+            "epoch_id": 33
+          },
+          "duration_ms": 30970,
+          "error": null
+        }
+      },
+      {
+        "check": "Sanctions: Roland Busch",
+        "status": "pass",
+        "summary": "\"Roland Busch\": no match on 1 lists (OFAC SDN, …).",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Roland Busch"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "name": "Roland Busch",
+            "matched": false,
+            "matches": null,
+            "lists": [
+              "OFAC SDN"
+            ],
+            "match_score": 0
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "missing",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "The response does not include: Matching sanctions-list entries",
+            "Sources returned conflicting information for: answer"
+          ],
+          "cost_usd": 0.02,
+          "signal_hash": "0x6983b95757ef8e0bf8610849fe36ed718f0481de05b01101113b6e858ac39658",
+          "receipt": {
+            "receipt_hash": "0x8e3dfb8730fa2e8c84e450248d4375ae6b3302f887a9554e46639f0d5286eb43",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6119",
+            "epoch_id": 33
+          },
+          "duration_ms": 26096,
+          "error": null
+        }
+      },
+      {
+        "check": "Website",
+        "status": "pass",
+        "summary": "http://testsafebrowsing.appspot.com/s/phishing.html scanned as safe.",
+        "purchase": {
+          "intent": "URL_SCAN_VERDICT",
+          "params": {
+            "url": "http://testsafebrowsing.appspot.com/s/phishing.html"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "731006",
+          "miner_name": "Counterproof URL Safety",
+          "result": {
+            "safe": true
+          },
+          "field_status": {
+            "safe": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0xe2bd025d487530c81e32ea09a49175ac046a03334afe47ef376958dc4f5aed88",
+          "receipt": {
+            "receipt_hash": "0x84b57c81b94f451664570e4fe2137c8e21bbe83387f4592730be275a1903f00b",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5297",
+            "epoch_id": 33
+          },
+          "duration_ms": 5718,
+          "error": null
+        }
+      },
+      {
+        "check": "Invoice FX",
+        "status": "pass",
+        "summary": "EUR 48,500 is USD 53,301.5 at the rate now.",
+        "purchase": {
+          "intent": "CURRENCY_EXCHANGE_CONVERT",
+          "params": {
+            "from_currency": "EUR",
+            "to_currency": "USD",
+            "amount": 48500
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "20260828",
+          "miner_name": "PREFLIGHT Infrastructure Signals",
+          "result": {
+            "converted_amount": 53301.5
+          },
+          "field_status": {
+            "converted_amount": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x2a05baf359217a4dae8dcd317bed4a7e29c57208c5cdb84a686859e05516f9e5",
+          "receipt": {
+            "receipt_hash": "0xb01b5338df3e83282179a727ab59b75ff854bb0ea5e824665107abaaecf9ac7e",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5311",
+            "epoch_id": 33
+          },
+          "duration_ms": 6201,
+          "error": null
+        }
+      },
+      {
+        "check": "Adverse media",
+        "status": "unanswered",
+        "summary": "Adverse media: no usable answer (empty result), so it is not counted as a pass.",
+        "purchase": {
+          "intent": "WEB_SEARCH_GENERAL",
+          "params": {
+            "query": "Siemens AG fraud sanctions lawsuit investigation"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "20260828",
+          "miner_name": "PREFLIGHT Infrastructure Signals",
+          "result": {
+            "answer": null,
+            "sources": [
+              "https://en.wikipedia.org/wiki/Siemens",
+              "https://en.wikipedia.org/wiki/Siemens_Healthineers",
+              "https://en.wikipedia.org/wiki/Siemens_Energy",
+              "https://en.wikipedia.org/wiki/Siemens_Communications",
+              "https://www.latestly.com/socially/world/new-siemens-ag-chairman-calls-on-one-billion-people-to-stop-eating-meat-to-combat-latest-tweet-by-disclose-tv-4735288.html",
+              "https://www.rechargenews.com/wind/wind-turbine-arms-race-back-on-agenda-as-siemens-gamesa-said-to-plan-21mw-giant/2-1-1658920?zephr_sso_ott=vj4QjG"
+            ],
+            "brief": "The provided sources do not contain information regarding a fraud sanctions"
+          },
+          "field_status": {
+            "answer": "missing",
+            "sources": "ok",
+            "brief": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0xd9e33ee112f302f97928b40cfbaf21a876618e381aa7074b45ea9891e016c210",
+          "receipt": {
+            "receipt_hash": "0xdae9ecdf516ba6fb418026f7cc8afc88ee756d57a29e874a9f9ce03725c1e78b",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5311",
+            "epoch_id": 33
+          },
+          "duration_ms": 11089,
+          "error": null
+        }
+      }
+    ],
+    "paid_asks": 6,
+    "cost_usd": 0.08
+  },
+  "reviewer": {
+    "decision": "HOLD",
+    "changed": true,
+    "from": "REVIEW",
+    "changes": [],
+    "extra_findings": [
+      {
+        "check": "Payment link domain",
+        "status": "review",
+        "summary": "The payment link is on appspot.com, which is not a domain of \"Siemens AG\": confirm the link with the supplier by a known phone number before paying (the usual sign of a swapped invoice link).",
+        "purchase": null
+      },
+      {
+        "check": "Website, second scanner",
+        "status": "fail",
+        "summary": "A second scanner (ChainSight — Universal Intelligence & Data Oracle) calls http://testsafebrowsing.appspot.com/s/phishing.html unsafe, against the first scanner's \"safe\"; the worse verdict stands.",
+        "purchase": {
+          "intent": "URL_SCAN_VERDICT",
+          "params": {
+            "url": "http://testsafebrowsing.appspot.com/s/phishing.html"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "answer": "The URL http://testsafebrowsing.appspot.com/s/phishing.html is assessed as unsafe, with a risk score of 0.9 on a 0 (safe) to 1 (unsafe) scale: it answers with HTTP status 200 over HTTP but shows brand-impersonation or known-malicious indicators.",
+            "http_status": 200,
+            "risk": 0.9,
+            "signal": "The URL http://testsafebrowsing.appspot.com/s/phishing.html is assessed as unsafe, with a risk score of 0.9 on a 0 (safe) to 1 (unsafe) scale: it answers with HTTP status 200 over HTTP but shows brand-impersonation or known-malicious indicators.",
+            "source": "live-scan",
+            "url": "http://testsafebrowsing.appspot.com/s/phishing.html",
+            "verdict": "unsafe"
+          },
+          "field_status": null,
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x72ef81c660d0fba0e0d4713b0d277ae9eb26a74614188d872791d32d1ef6e2d0",
+          "receipt": {
+            "receipt_hash": "0x9bb3f4db19b64b492d2878bf8248ee41babdd0d8834163f0b5910d1248bcd705",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6119",
+            "epoch_id": 33
+          },
+          "duration_ms": 1895,
+          "error": null
+        }
+      },
+      {
+        "check": "Independent registry (GLEIF)",
+        "status": "pass",
+        "summary": "GLEIF confirms \"Siemens Aktiengesellschaft\" (LEI W38RGI023J3WT1HWRP32): entity ACTIVE, registration ISSUED. Register number HRB 6684.",
+        "purchase": null,
+        "source": "https://search.gleif.org/#/record/W38RGI023J3WT1HWRP32",
+        "gleif": {
+          "lei": "W38RGI023J3WT1HWRP32",
+          "legal_name": "Siemens Aktiengesellschaft",
+          "entity_status": "ACTIVE",
+          "registration_status": "ISSUED",
+          "next_renewal": "2027-10-25T12:49:24Z",
+          "registered_as": "HRB 6684",
+          "source": "https://search.gleif.org/#/record/W38RGI023J3WT1HWRP32"
+        }
+      }
+    ],
+    "reasons": [
+      "Adverse media: no usable answer (empty result), so it is not counted as a pass.",
+      "The payment link is on appspot.com, which is not a domain of \"Siemens AG\": confirm the link with the supplier by a known phone number before paying (the usual sign of a swapped invoice link).",
+      "A second scanner (ChainSight — Universal Intelligence & Data Oracle) calls http://testsafebrowsing.appspot.com/s/phishing.html unsafe, against the first scanner's \"safe\"; the worse verdict stands."
+    ],
+    "cost_usd": 0.01
+  }
+}

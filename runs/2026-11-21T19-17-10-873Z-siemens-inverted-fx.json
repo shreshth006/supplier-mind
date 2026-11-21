@@ -1,0 +1,317 @@
+{
+  "case": {
+    "name": "Siemens AG",
+    "country": "DE",
+    "officers": [
+      "Roland Busch"
+    ],
+    "website": "https://www.siemens.com",
+    "constructed": "The invoice converts EUR to USD with the rate inverted (USD per EUR used as EUR per USD), a common spreadsheet error.",
+    "invoice": {
+      "number": "SI-2026-11-0415",
+      "amount": 10000,
+      "currency": "EUR",
+      "pay_currency": "USD",
+      "pay_amount": 8620
+    },
+    "expect": {
+      "decision": "HOLD",
+      "why": "USD 8,620 is EUR 10,000 at the inverse of the EUR/USD rate, which is roughly a fifth short of the true amount, far outside a 2% tolerance."
+    }
+  },
+  "at": "2026-11-21T19:17:10.873Z",
+  "final": "HOLD",
+  "cost_usd": 0.08,
+  "investigator": {
+    "supplier": "Siemens AG",
+    "decision": "HOLD",
+    "reasons": [
+      "The invoice asks USD 8,620 for EUR 10,000, but that is USD 10,990 now: -21.6% off, beyond the 2% tolerance.",
+      "Adverse media: no usable answer (empty result), so it is not counted as a pass."
+    ],
+    "findings": [
+      {
+        "check": "Registry record",
+        "status": "pass",
+        "summary": "\"Siemens Aktiengesellschaft\", registration HRB 6684 is on the registry and active.",
+        "purchase": {
+          "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+          "params": {
+            "company": "Siemens AG",
+            "jurisdiction": "DE"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "20260828",
+          "miner_name": "PREFLIGHT Infrastructure Signals",
+          "result": {
+            "legal_name": "Siemens Aktiengesellschaft",
+            "registration_id": "HRB 6684",
+            "active": true,
+            "jurisdiction": "DE",
+            "registered_address": "Werner-von-Siemens-Str. 1, München, DE-BY, 80333, DE",
+            "incorporated": "1996-08-27"
+          },
+          "field_status": {
+            "legal_name": "ok",
+            "registration_id": "ok",
+            "active": "ok",
+            "jurisdiction": "ok",
+            "registered_address": "ok",
+            "incorporated": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x549281bae4f8fa9fae257f21db827e09676243000b920da95f4b177c06490f55",
+          "receipt": {
+            "receipt_hash": "0x23e9437236413dc9518ba31492e5a9bcff6c3a2423950c9c1aeff7ce314cd038",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5311",
+            "epoch_id": 33
+          },
+          "duration_ms": 6205,
+          "error": null
+        }
+      },
+      {
+        "check": "Sanctions: company",
+        "status": "pass",
+        "summary": "\"Siemens AG\": no match on 1 lists (OFAC SDN, …).",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Siemens AG"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "name": "Siemens AG",
+            "matched": false,
+            "matches": null,
+            "lists": [
+              "OFAC SDN"
+            ],
+            "match_score": 0
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "missing",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "The response does not include: Matching sanctions-list entries",
+            "Sources returned conflicting information for: answer",
+            "Sources returned conflicting information for: source",
+            "Sources returned conflicting information for: lists",
+            "Sources returned conflicting information for: summary"
+          ],
+          "cost_usd": 0.02,
+          "signal_hash": "0x1e7ad92e660a0454b63d1ef9c101f0dd5ee6b77c78881200612099796c05422f",
+          "receipt": {
+            "receipt_hash": "0x83346e7ffc23f0ad4dbd540d5f428243a57aaf8fd1519fd2c1631fdc0b4e23bc",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6119",
+            "epoch_id": 33
+          },
+          "duration_ms": 25486,
+          "error": null
+        }
+      },
+      {
+        "check": "Sanctions: Roland Busch",
+        "status": "pass",
+        "summary": "\"Roland Busch\": no match on 1 lists (OFAC SDN, …).",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Roland Busch"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "name": "Roland Busch",
+            "matched": false,
+            "matches": null,
+            "lists": [
+              "OFAC SDN"
+            ],
+            "match_score": 0
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "missing",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "The response does not include: Matching sanctions-list entries",
+            "Sources returned conflicting information for: answer"
+          ],
+          "cost_usd": 0.02,
+          "signal_hash": "0xb964035b4c84ce9befc3aeb0864d6c0c35ff1bc738e218a7a934f0a8369ff6c6",
+          "receipt": {
+            "receipt_hash": "0x719db1c6c1885ff41bb6ec254cc3fa7d0e3f7d9f07cb06faaaf6174f9574dc5d",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6119",
+            "epoch_id": 33
+          },
+          "duration_ms": 30038,
+          "error": null
+        }
+      },
+      {
+        "check": "Website",
+        "status": "pass",
+        "summary": "https://www.siemens.com scanned as safe.",
+        "purchase": {
+          "intent": "URL_SCAN_VERDICT",
+          "params": {
+            "url": "https://www.siemens.com"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "safe": true
+          },
+          "field_status": {
+            "safe": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x0154c6b25ba94824e46eade87a91d8ccc54b3d1311e36409957644199a4693ee",
+          "receipt": {
+            "receipt_hash": "0xece0015c46be0eb4c90e07bb6040afb677abb8fa8559bac1c20b6c1cf52ee7ef",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6119",
+            "epoch_id": 33
+          },
+          "duration_ms": 6047,
+          "error": null
+        }
+      },
+      {
+        "check": "Invoice FX",
+        "status": "fail",
+        "summary": "The invoice asks USD 8,620 for EUR 10,000, but that is USD 10,990 now: -21.6% off, beyond the 2% tolerance.",
+        "purchase": {
+          "intent": "CURRENCY_EXCHANGE_CONVERT",
+          "params": {
+            "from_currency": "EUR",
+            "to_currency": "USD",
+            "amount": 10000
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "20260828",
+          "miner_name": "PREFLIGHT Infrastructure Signals",
+          "result": {
+            "converted_amount": 10990
+          },
+          "field_status": {
+            "converted_amount": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x579ae673533f85ed8a471b81865bffa61e19b62e3663841473db2eaabc63f791",
+          "receipt": {
+            "receipt_hash": "0xd834c76e85525320c0a6a2bd387dc9997de5b6773bf0f730c885a38d11fb815c",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5311",
+            "epoch_id": 33
+          },
+          "duration_ms": 4049,
+          "error": null
+        }
+      },
+      {
+        "check": "Adverse media",
+        "status": "unanswered",
+        "summary": "Adverse media: no usable answer (empty result), so it is not counted as a pass.",
+        "purchase": {
+          "intent": "WEB_SEARCH_GENERAL",
+          "params": {
+            "query": "Siemens AG fraud sanctions lawsuit investigation"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "20260828",
+          "miner_name": "PREFLIGHT Infrastructure Signals",
+          "result": {
+            "answer": null,
+            "sources": [
+              "https://en.wikipedia.org/wiki/Siemens",
+              "https://en.wikipedia.org/wiki/Siemens_Healthineers",
+              "https://en.wikipedia.org/wiki/Siemens_Energy",
+              "https://en.wikipedia.org/wiki/Siemens_Communications",
+              "https://www.latestly.com/socially/world/new-siemens-ag-chairman-calls-on-one-billion-people-to-stop-eating-meat-to-combat-latest-tweet-by-disclose-tv-4735288.html",
+              "https://www.rechargenews.com/wind/wind-turbine-arms-race-back-on-agenda-as-siemens-gamesa-said-to-plan-21mw-giant/2-1-1658920?zephr_sso_ott=vj4QjG"
+            ],
+            "brief": "The provided sources do not contain information regarding a fraud sanctions"
+          },
+          "field_status": {
+            "answer": "missing",
+            "sources": "ok",
+            "brief": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x762ac71c39d74f09a1baf208761123d4ca17befed5642b08c7d0e6f86d095e84",
+          "receipt": {
+            "receipt_hash": "0x5786c5ec19ea41adaf194f78f14757d9398716315a0fcf76b18474aa0bbca3df",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5311",
+            "epoch_id": 33
+          },
+          "duration_ms": 2254,
+          "error": null
+        }
+      }
+    ],
+    "paid_asks": 6,
+    "cost_usd": 0.08
+  },
+  "reviewer": {
+    "decision": "HOLD",
+    "changed": false,
+    "from": "HOLD",
+    "changes": [],
+    "extra_findings": [
+      {
+        "check": "Independent registry (GLEIF)",
+        "status": "pass",
+        "summary": "GLEIF confirms \"Siemens Aktiengesellschaft\" (LEI W38RGI023J3WT1HWRP32): entity ACTIVE, registration ISSUED. Register number HRB 6684.",
+        "purchase": null,
+        "source": "https://search.gleif.org/#/record/W38RGI023J3WT1HWRP32",
+        "gleif": {
+          "lei": "W38RGI023J3WT1HWRP32",
+          "legal_name": "Siemens Aktiengesellschaft",
+          "entity_status": "ACTIVE",
+          "registration_status": "ISSUED",
+          "next_renewal": "2027-10-25T12:49:24Z",
+          "registered_as": "HRB 6684",
+          "source": "https://search.gleif.org/#/record/W38RGI023J3WT1HWRP32"
+        }
+      }
+    ],
+    "reasons": [
+      "The invoice asks USD 8,620 for EUR 10,000, but that is USD 10,990 now: -21.6% off, beyond the 2% tolerance.",
+      "Adverse media: no usable answer (empty result), so it is not counted as a pass."
+    ],
+    "cost_usd": 0
+  }
+}

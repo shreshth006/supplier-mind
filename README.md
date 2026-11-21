@@ -26,26 +26,41 @@ given the same case and no checks. "With Telegraph" is the Investigator and the 
 | Garantex Europe OU, OFAC SDN | HOLD | REVIEW ✗ ("potential crypto-related business") | **HOLD ✓**, SDN match | $0.08 |
 | Renova Group, sanctioned chairman | HOLD | HOLD ✓ | **HOLD ✓**, company and Vekselberg on the SDN list | $0.06 |
 | Buhmann Holding GmbH, LEI lapsed today | REVIEW | RELEASE ✗ | **REVIEW ✓**, GLEIF shows the LEI lapsed | $0.03 |
-| Siemens AG, swapped payment link (phishing test page) | HOLD | REVIEW (read "phishing" in the URL) | REVIEW, not HOLD: the second scanner's call failed ("fetch failed") and the escrow then ran out | $0.05 |
-| Siemens AG, invoice FX inverted | HOLD | RELEASE ✗ | not run: escrow ran out | – |
+| Siemens AG, swapped payment link (phishing test page) | HOLD | REVIEW (read "phishing" in the URL) | **HOLD ✓**: the Reviewer's second scanner called the page unsafe, against the first scanner's "safe" | $0.09 |
+| Siemens AG, invoice FX inverted | HOLD | RELEASE ✗ | **HOLD ✓**, the invoice is 21.6% short at the current rate | $0.08 |
+| Hikvision (Chrysolite's case) | REVIEW | not run | HOLD, stricter than expected: the sanctions answer listed the exact name at score 1 while saying "no match", and adverse media ties it to US and EU sanctions | $0.05 |
 
 Without Telegraph: **2 of 6**, and two invoices it would have paid (a lapsed LEI, an
-invoice 21.6% short). With Telegraph: **4 of 4 completed cases**, and the two unfinished
-cases never reached RELEASE. The last two are rerun with the next faucet claim.
+invoice 21.6% short). With Telegraph: **6 of 6**. The last two were rerun on 2026-11-21
+after a faucet top-up (an earlier attempt ran out of escrow). Hikvision is a seventh case,
+added from a forum question; it was not run without Telegraph.
+
+The first Hikvision run (`runs/2026-11-21T19-18-00-950Z-hikvision.json`, and a second at
+19:25) was **wrong**: it released the supplier. The sanctions Provider answered
+`matched: false` beside "HANGZHOU HIKVISION DIGITAL TECHNOLOGY CO., LTD." at
+`match_score: 1` and the Investigator read only the flag; the Reviewer's GLEIF lookup by
+legal name (Hikvision's is in Chinese) returned an unrelated company; and adverse media looked
+only for the first word of the name. All three are fixed, and the 19:26 run holds it. The
+sanctions Provider searched one list, OFAC SDN, so UK and Canadian lists were not checked;
+Hikvision is on Treasury's NS-CMIC list rather than the SDN list, which is why the match is
+held for a person to check rather than called an SDN hit.
 
 ### What the Reviewer caught
 
-In these runs the Reviewer did not change a decision; what it found is what a person reads
-before approving.
+In one run the Reviewer changed the decision: the swapped-link rerun of 2026-11-21
+(`runs/2026-11-21T19-15-54-643Z-siemens-swapped-link.json`) went from the Investigator's
+REVIEW to HOLD on its second URL scan. In the other runs it agreed, and what it found is
+what a person reads before approving.
 
 
 - **A Provider that was wrong.** Counterproof URL Safety called Google Safe Browsing's public
   phishing test page *safe*, twice. In the first run (not kept in `runs/`) both Minds passed it
   and the invoice would have been released. The Reviewer then got a domain check and a second
-  URL scanner; on the rerun (`runs/…-siemens-swapped-link.json`) it flags that the link is on
-  `appspot.com`, not a Siemens domain, while its second scan failed ("fetch failed"). That
-  run's REVIEW came from the unpaid adverse-media check. Asked directly, ChainSight calls the
-  same page unsafe (risk 0.9).
+  URL scanner. On the 2026-11-20 rerun its second scan failed ("fetch failed") and that
+  run's REVIEW came from the unpaid adverse-media check. On the 2026-11-21 rerun the second
+  scanner (ChainSight) answered: it calls the page unsafe, the worse verdict stands, and the
+  memo is HOLD. The Reviewer also flags that the link is on `appspot.com`, not a Siemens
+  domain.
 - **A registry match that was another company.** "Renova Group" came back as
   "RENOVA GROUP S.R.L."; the Reviewer screened that name too and noted GLEIF's record does
   not confirm the supplier.

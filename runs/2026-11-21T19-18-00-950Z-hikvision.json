@@ -1,0 +1,231 @@
+{
+  "case": {
+    "name": "Hangzhou Hikvision Digital Technology Co., Ltd.",
+    "country": "CN",
+    "website": "https://www.hikvision.com",
+    "invoice": {
+      "number": "HK-20931",
+      "amount": 48000,
+      "currency": "USD",
+      "pay_currency": "USD"
+    },
+    "expect": {
+      "decision": "REVIEW",
+      "why": "On US lists (OFAC's Non-SDN Chinese Military-Industrial Complex list, the Commerce Entity List, the FCC Covered List) but not the OFAC SDN list, and not on UK or Canadian sanctions lists. Not an outright block, but a compliance person must read it before paying. Lists that come back empty must be reported as checked and empty, not as clean. Suggested by Chrysolite494 as a swap test."
+    },
+    "notes": "A plain GLEIF name search for \"Hikvision\" returns Prama Hikvision India Private Limited, a different legal entity, so the registry check has to match the full legal name."
+  },
+  "at": "2026-11-21T19:18:00.950Z",
+  "final": "REVIEW",
+  "cost_usd": 0.05,
+  "investigator": {
+    "supplier": "Hangzhou Hikvision Digital Technology Co., Ltd.",
+    "decision": "REVIEW",
+    "reasons": [
+      "Adverse media: no usable answer (empty result), so it is not counted as a pass."
+    ],
+    "findings": [
+      {
+        "check": "Registry record",
+        "status": "pass",
+        "summary": "\"Hangzhou HIKVISION Digital Technology Co.,Ltd.\", registration 91330000733796106P is on the registry and active.",
+        "purchase": {
+          "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+          "params": {
+            "company": "Hangzhou Hikvision Digital Technology Co., Ltd.",
+            "jurisdiction": "CN"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "20260828",
+          "miner_name": "PREFLIGHT Infrastructure Signals",
+          "result": {
+            "legal_name": "Hangzhou HIKVISION Digital Technology Co.,Ltd.",
+            "registration_id": "91330000733796106P",
+            "active": true,
+            "jurisdiction": "CN",
+            "registered_address": "滨江区阡陌路555号, 杭州市, CN-ZJ, 310051, CN",
+            "incorporated": "2001-11-29"
+          },
+          "field_status": {
+            "legal_name": "ok",
+            "registration_id": "ok",
+            "active": "ok",
+            "jurisdiction": "ok",
+            "registered_address": "ok",
+            "incorporated": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x48415b98395936a2e005813e637a1068aa1b654c66fcf9d8e9aea6d5be4d17db",
+          "receipt": {
+            "receipt_hash": "0xcfdc0998aacadd3f98f14128545320ebfbe6ad2a50121d3855981599cbc2650d",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5311",
+            "epoch_id": 33
+          },
+          "duration_ms": 7844,
+          "error": null
+        }
+      },
+      {
+        "check": "Sanctions: company",
+        "status": "pass",
+        "summary": "\"Hangzhou Hikvision Digital Technology Co., Ltd.\": no match on 1 lists (OFAC SDN, …).",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Hangzhou Hikvision Digital Technology Co., Ltd."
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "name": "Hangzhou Hikvision Digital Technology Co Ltd",
+            "matched": false,
+            "matches": [
+              "HANGZHOU HIKVISION DIGITAL TECHNOLOGY CO., LTD."
+            ],
+            "lists": [
+              "OFAC SDN"
+            ],
+            "match_score": 1
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "ok",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "Sources returned conflicting information for: answer",
+            "Sources returned conflicting information for: source",
+            "Sources returned conflicting information for: lists",
+            "Sources returned conflicting information for: match_score",
+            "Sources returned conflicting information for: matched",
+            "Sources returned conflicting information for: name",
+            "Sources returned conflicting information for: verdict",
+            "Sources returned conflicting information for: summary"
+          ],
+          "cost_usd": 0.02,
+          "signal_hash": "0xcaf7c3ada78b5147d5a8c641d551f78d5126ff5d1e438fceb51991aa143d464d",
+          "receipt": {
+            "receipt_hash": "0xb7628722a97bb9a00bad921ab4dcc9dd07064aad72cfe01eb72d4bc23174b88c",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6119",
+            "epoch_id": 33
+          },
+          "duration_ms": 29593,
+          "error": null
+        }
+      },
+      {
+        "check": "Website",
+        "status": "pass",
+        "summary": "https://www.hikvision.com scanned as safe.",
+        "purchase": {
+          "intent": "URL_SCAN_VERDICT",
+          "params": {
+            "url": "https://www.hikvision.com"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "safe": true
+          },
+          "field_status": {
+            "safe": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0xa9084355b84d1dd3ae9d9bb82d0d16fca97d6e0f8f60f9c70fce7d85421c036a",
+          "receipt": {
+            "receipt_hash": "0x3545439fa3b09f1e4320b91007c339584e31723ca9808ef8861de9b025dd5559",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6119",
+            "epoch_id": 33
+          },
+          "duration_ms": 4747,
+          "error": null
+        }
+      },
+      {
+        "check": "Adverse media",
+        "status": "unanswered",
+        "summary": "Adverse media: no usable answer (empty result), so it is not counted as a pass.",
+        "purchase": {
+          "intent": "WEB_SEARCH_GENERAL",
+          "params": {
+            "query": "Hangzhou Hikvision Digital Technology Co., Ltd. fraud sanctions lawsuit investigation"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "20260828",
+          "miner_name": "PREFLIGHT Infrastructure Signals",
+          "result": {
+            "answer": null,
+            "sources": [
+              "https://en.wikipedia.org/wiki/Hikvision"
+            ],
+            "brief": "The provided sources do not contain information regarding a fraud sanctions"
+          },
+          "field_status": {
+            "answer": "missing",
+            "sources": "ok",
+            "brief": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x4f2d6e2a998d367dcb57e5c566f5b6b6c4034726cf9ebe8eb4b72c61a4e5e44e",
+          "receipt": {
+            "receipt_hash": "0x8aa0729f552a4e12e67108bf4f4c4ec9a54e4af6731f0ae60ff9c85796fe7e72",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5311",
+            "epoch_id": 33
+          },
+          "duration_ms": 4918,
+          "error": null
+        }
+      }
+    ],
+    "paid_asks": 4,
+    "cost_usd": 0.05
+  },
+  "reviewer": {
+    "decision": "REVIEW",
+    "changed": false,
+    "from": "REVIEW",
+    "changes": [],
+    "extra_findings": [
+      {
+        "check": "Independent registry (GLEIF)",
+        "status": "review",
+        "summary": "GLEIF's record is for \"TRANSLINK (LTD) LTD\" (LEI 894500TSKNE8XM67HY36), not \"Hangzhou Hikvision Digital Technology Co., Ltd.\", so it does not confirm the supplier.",
+        "purchase": null,
+        "source": "https://search.gleif.org/#/record/894500TSKNE8XM67HY36",
+        "gleif": {
+          "lei": "894500TSKNE8XM67HY36",
+          "legal_name": "TRANSLINK (LTD) LTD",
+          "entity_status": "INACTIVE",
+          "registration_status": "RETIRED",
+          "next_renewal": "2026-02-17T11:08:19Z",
+          "registered_as": "15923064",
+          "source": "https://search.gleif.org/#/record/894500TSKNE8XM67HY36"
+        }
+      }
+    ],
+    "reasons": [
+      "Adverse media: no usable answer (empty result), so it is not counted as a pass.",
+      "GLEIF's record is for \"TRANSLINK (LTD) LTD\" (LEI 894500TSKNE8XM67HY36), not \"Hangzhou Hikvision Digital Technology Co., Ltd.\", so it does not confirm the supplier."
+    ],
+    "cost_usd": 0
+  }
+}

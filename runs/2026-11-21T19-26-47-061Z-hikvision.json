@@ -1,0 +1,236 @@
+{
+  "case": {
+    "name": "Hangzhou Hikvision Digital Technology Co., Ltd.",
+    "country": "CN",
+    "website": "https://www.hikvision.com",
+    "invoice": {
+      "number": "HK-20931",
+      "amount": 48000,
+      "currency": "USD",
+      "pay_currency": "USD"
+    },
+    "expect": {
+      "decision": "REVIEW",
+      "why": "On US lists (OFAC's Non-SDN Chinese Military-Industrial Complex list, the Commerce Entity List, the FCC Covered List) but not the OFAC SDN list, and not on UK or Canadian sanctions lists. Not an outright block, but a compliance person must read it before paying. Lists that come back empty must be reported as checked and empty, not as clean. Suggested by Chrysolite494 as a swap test."
+    },
+    "notes": "A plain GLEIF name search for \"Hikvision\" returns Prama Hikvision India Private Limited, a different legal entity, so the registry check has to match the full legal name."
+  },
+  "at": "2026-11-21T19:26:47.061Z",
+  "final": "HOLD",
+  "cost_usd": 0.05,
+  "investigator": {
+    "supplier": "Hangzhou Hikvision Digital Technology Co., Ltd.",
+    "decision": "HOLD",
+    "reasons": [
+      "\"Hangzhou Hikvision Digital Technology Co., Ltd.\" was answered as no match, but the same answer lists \"HANGZHOU HIKVISION DIGITAL TECHNOLOGY CO., LTD.\" at match score 1 on OFAC SDN: a listed name that close is treated as a match until a person clears it.",
+      "A search answer ties the supplier to a risk term, so a person should read it: \"Hikvision has faced various sanctions and investigations regarding its involvement in human rights violations, national security concerns, and forged test reports.\""
+    ],
+    "findings": [
+      {
+        "check": "Registry record",
+        "status": "pass",
+        "summary": "\"Hangzhou HIKVISION Digital Technology Co.,Ltd.\", registration 91330000733796106P is on the registry and active.",
+        "purchase": {
+          "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+          "params": {
+            "company": "Hangzhou Hikvision Digital Technology Co., Ltd.",
+            "jurisdiction": "CN"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "20260828",
+          "miner_name": "PREFLIGHT Infrastructure Signals",
+          "result": {
+            "legal_name": "Hangzhou HIKVISION Digital Technology Co.,Ltd.",
+            "registration_id": "91330000733796106P",
+            "active": true,
+            "jurisdiction": "CN",
+            "registered_address": "滨江区阡陌路555号, 杭州市, CN-ZJ, 310051, CN",
+            "incorporated": "2001-11-29"
+          },
+          "field_status": {
+            "legal_name": "ok",
+            "registration_id": "ok",
+            "active": "ok",
+            "jurisdiction": "ok",
+            "registered_address": "ok",
+            "incorporated": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x6e7e089076a8501ddd39514f87eb42e4098197d6143c4b2e0c2f6d9ee26d1dad",
+          "receipt": {
+            "receipt_hash": "0xd62159fad34fc1777df6c57349554a97ba1314b39a745705674bc985280d9d95",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5311",
+            "epoch_id": 33
+          },
+          "duration_ms": 7531,
+          "error": null
+        }
+      },
+      {
+        "check": "Sanctions: company",
+        "status": "fail",
+        "summary": "\"Hangzhou Hikvision Digital Technology Co., Ltd.\" was answered as no match, but the same answer lists \"HANGZHOU HIKVISION DIGITAL TECHNOLOGY CO., LTD.\" at match score 1 on OFAC SDN: a listed name that close is treated as a match until a person clears it.",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Hangzhou Hikvision Digital Technology Co., Ltd."
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "name": "Hangzhou Hikvision Digital Technology Co Ltd",
+            "matched": false,
+            "matches": [
+              "HANGZHOU HIKVISION DIGITAL TECHNOLOGY CO., LTD."
+            ],
+            "lists": [
+              "OFAC SDN"
+            ],
+            "match_score": 1
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "ok",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "Sources returned conflicting information for: answer",
+            "Sources returned conflicting information for: source",
+            "Sources returned conflicting information for: lists",
+            "Sources returned conflicting information for: match_score",
+            "Sources returned conflicting information for: matched",
+            "Sources returned conflicting information for: name",
+            "Sources returned conflicting information for: verdict",
+            "Sources returned conflicting information for: summary"
+          ],
+          "cost_usd": 0.02,
+          "signal_hash": "0xabb69dd2540e7ea819115a6164509cdbee97885a52ba51a2cd33aff0e8688535",
+          "receipt": {
+            "receipt_hash": "0x223ba382f6eb5fd60d40fbdd893c3b8c9e6b87a7a2b888d8bf004a629ec6d09b",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6119",
+            "epoch_id": 33
+          },
+          "duration_ms": 31263,
+          "error": null
+        }
+      },
+      {
+        "check": "Website",
+        "status": "pass",
+        "summary": "https://www.hikvision.com scanned as safe.",
+        "purchase": {
+          "intent": "URL_SCAN_VERDICT",
+          "params": {
+            "url": "https://www.hikvision.com"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "safe": true
+          },
+          "field_status": {
+            "safe": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0xcacad6566d5db65740162681c11071c20d294476a71edcb4830abebc09b32f1d",
+          "receipt": {
+            "receipt_hash": "0xd27eb84d7a77b1de7156fba355c79a24250962dde8ad5ddd7a3bcd05225d6d04",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6119",
+            "epoch_id": 33
+          },
+          "duration_ms": 3759,
+          "error": null
+        }
+      },
+      {
+        "check": "Adverse media",
+        "status": "review",
+        "summary": "A search answer ties the supplier to a risk term, so a person should read it: \"Hikvision has faced various sanctions and investigations regarding its involvement in human rights violations, national security concerns, and forged test reports.\"",
+        "purchase": {
+          "intent": "WEB_SEARCH_GENERAL",
+          "params": {
+            "query": "Hangzhou Hikvision Digital Technology Co., Ltd. fraud sanctions lawsuit investigation"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "20260828",
+          "miner_name": "PREFLIGHT Infrastructure Signals",
+          "result": {
+            "answer": "Hikvision has faced various sanctions and investigations regarding its involvement in human rights violations, national security concerns, and forged test reports. While the provided sources do not mention a specific lawsuit regarding fraud, they do document that the company was banned by South Korea's Ministry of Science and ICT in 2021 specifically due to forged test reports.",
+            "sources": [
+              "https://en.wikipedia.org/wiki/Hikvision"
+            ],
+            "brief": "Hikvision has faced various sanctions and investigations regarding its"
+          },
+          "field_status": {
+            "answer": "ok",
+            "sources": "ok",
+            "brief": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0xe93363b3e7b8e56e4d4ed4e9a247d7826b321e3a538cdc4ff914f6250ceef69d",
+          "receipt": {
+            "receipt_hash": "0xf27af5e0ed7cd725f3af5c277edeac683d8b60063b4ea8ee7eb5ae87a8a39374",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "5311",
+            "epoch_id": 33
+          },
+          "duration_ms": 2357,
+          "error": null
+        }
+      }
+    ],
+    "paid_asks": 4,
+    "cost_usd": 0.05
+  },
+  "reviewer": {
+    "decision": "HOLD",
+    "changed": false,
+    "from": "HOLD",
+    "changes": [],
+    "extra_findings": [
+      {
+        "check": "Independent registry (GLEIF)",
+        "status": "pass",
+        "summary": "GLEIF confirms \"杭州海康威视数字技术股份有限公司\" (\"Hangzhou HIKVISION Digital Technology Co.,Ltd.\") (LEI 3003000T24CMHQ382Y71): entity ACTIVE, registration ISSUED. Register number 91330000733796106P.",
+        "purchase": null,
+        "source": "https://search.gleif.org/#/record/3003000T24CMHQ382Y71",
+        "gleif": {
+          "lei": "3003000T24CMHQ382Y71",
+          "legal_name": "杭州海康威视数字技术股份有限公司",
+          "names": [
+            "杭州海康威视数字技术股份有限公司",
+            "Hangzhou HIKVISION Digital Technology Co.,Ltd."
+          ],
+          "entity_status": "ACTIVE",
+          "registration_status": "ISSUED",
+          "next_renewal": "2027-11-09T16:05:43Z",
+          "registered_as": "91330000733796106P",
+          "source": "https://search.gleif.org/#/record/3003000T24CMHQ382Y71"
+        }
+      }
+    ],
+    "reasons": [
+      "\"Hangzhou Hikvision Digital Technology Co., Ltd.\" was answered as no match, but the same answer lists \"HANGZHOU HIKVISION DIGITAL TECHNOLOGY CO., LTD.\" at match score 1 on OFAC SDN: a listed name that close is treated as a match until a person clears it.",
+      "A search answer ties the supplier to a risk term, so a person should read it: \"Hikvision has faced various sanctions and investigations regarding its involvement in human rights violations, national security concerns, and forged test reports.\""
+    ],
+    "cost_usd": 0
+  }
+}
