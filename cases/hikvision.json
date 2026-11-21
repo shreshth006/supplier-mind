@@ -1,0 +1,11 @@
+{
+  "name": "Hangzhou Hikvision Digital Technology Co., Ltd.",
+  "country": "CN",
+  "website": "https://www.hikvision.com",
+  "invoice": { "number": "HK-20931", "amount": 48000, "currency": "USD", "pay_currency": "USD" },
+  "expect": {
+    "decision": "REVIEW",
+    "why": "On US lists (OFAC's Non-SDN Chinese Military-Industrial Complex list, the Commerce Entity List, the FCC Covered List) but not the OFAC SDN list, and not on UK or Canadian sanctions lists. Not an outright block, but a compliance person must read it before paying. Lists that come back empty must be reported as checked and empty, not as clean. Suggested by Chrysolite494 as a swap test."
+  },
+  "notes": "A plain GLEIF name search for \"Hikvision\" returns Prama Hikvision India Private Limited, a different legal entity, so the registry check has to match the full legal name."
+}
