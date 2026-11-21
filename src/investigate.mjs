@@ -78,6 +78,18 @@ async function sanctions(name, label) {
   const r = p.result;
   if (!p.ok || typeof r?.matched !== 'boolean') return unanswered(check, p);
   const lists = Array.isArray(r.lists) ? r.lists : [];
+  // A listed name with a high score is a hit whatever the matched flag says: ChainSight
+  // answered Hikvision "matched: false" beside "HANGZHOU HIKVISION DIGITAL TECHNOLOGY CO.,
+  // LTD." at match_score 1, and the screen was passed.
+  const listed = (Array.isArray(r.matches) ? r.matches : []).map((m) => (typeof m === 'string' ? m : m?.name)).filter(Boolean);
+  const score = typeof r.match_score === 'number' ? r.match_score : null;
+  if (!r.matched && listed.length && (score === null ? listed.some((m) => sameName(m, name)) : score >= 0.85))
+    return finding(
+      check,
+      'fail',
+      `"${name}" was answered as no match, but the same answer lists "${listed[0]}"${score === null ? '' : ` at match score ${score}`}${lists.length ? ` (the answer names ${lists.slice(0, 2).join(', ')} as the list searched)` : ''}: a listed name that close is treated as a match until a person checks which list it is on and clears it.`,
+      p,
+    );
   if (r.matched)
     return finding(
       check,
@@ -86,7 +98,15 @@ async function sanctions(name, label) {
       p,
     );
   if (!lists.length) return finding(check, 'review', `"${name}": no match, but the answer names no list it searched.`, p);
-  return finding(check, 'pass', `"${name}": no match on ${lists.length} lists (${lists.slice(0, 3).join(', ')}, …).`, p);
+  // One list searched is not a clean screen: "no match on 1 lists (OFAC SDN, …)" read as if
+  // more had been checked. The lists are named exactly, and a single-list screen is a pass
+  // only for that list.
+  return finding(
+    check,
+    'pass',
+    `"${name}": no match on ${lists.length === 1 ? `the one list searched, ${lists[0]}` : `${lists.length} lists (${lists.slice(0, 4).join(', ')}${lists.length > 4 ? ', …' : ''})`}.`,
+    p,
+  );
 }
 
 async function website(c) {
@@ -147,10 +167,16 @@ async function adverseMedia(c) {
   const p = await ask('WEB_SEARCH_GENERAL', { query: `${c.name} fraud sanctions lawsuit investigation` });
   const answer = typeof p.result?.answer === 'string' ? p.result.answer : '';
   if (!p.ok || !answer) return unanswered('Adverse media', p);
-  const word = c.name.split(/\s+/)[0].toLowerCase();
+  // Any distinctive word of the name counts: the answer says "Hikvision has faced various
+  // sanctions", not "Hangzhou", and only the first word was looked for.
+  const words = c.name
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter((w) => w.length >= 4 && !/^(?:digital|technology|technologies|group|holding|holdings|international|global|company|corporation|limited|trading|services|systems|industries)$/.test(w));
+  const names = (s) => words.some((w) => s.toLowerCase().includes(w));
   const hits = answer
     .split(/(?<=[.!?])\s+/)
-    .filter((s) => RISK.test(s) && s.toLowerCase().includes(word) && !NEGATED.test(s));
+    .filter((s) => RISK.test(s) && names(s) && !NEGATED.test(s));
   // Lookback window: a matter that was settled or closed more than LOOKBACK_YEARS ago is
   // noted on the memo but does not stop payment; anything recent, open or undated does.
   const year = new Date().getUTCFullYear();

@@ -51,29 +51,56 @@ const plain = (x) =>
     .toUpperCase()
     .replace(/[^A-Z0-9]/g, '');
 
-async function gleif(lei, name) {
-  const url = /^[A-Z0-9]{20}$/.test(lei ?? '')
-    ? `https://api.gleif.org/api/v1/lei-records/${lei}`
-    : `https://api.gleif.org/api/v1/lei-records?filter%5Bentity.legalName%5D=${encodeURIComponent(name)}&page%5Bsize%5D=1`;
-  try {
-    const res = await fetch(url, { signal: AbortSignal.timeout(15_000) });
-    if (!res.ok) return null;
-    const d = await res.json();
-    const rec = Array.isArray(d.data) ? d.data[0] : d.data;
-    if (!rec) return null;
-    const a = rec.attributes;
-    return {
-      lei: a.lei,
-      legal_name: a.entity.legalName.name,
-      entity_status: a.entity.status,
-      registration_status: a.registration.status,
-      next_renewal: a.registration.nextRenewalDate,
-      registered_as: a.entity.registeredAs ?? null,
-      source: `https://search.gleif.org/#/record/${a.lei}`,
-    };
-  } catch {
-    return null;
+/** Every name GLEIF records for an entity: its legal name, other and transliterated names. */
+const namesOf = (a) => [
+  a.entity.legalName?.name,
+  ...(a.entity.otherNames ?? []).map((n) => n.name),
+  ...(a.entity.transliteratedOtherNames ?? []).map((n) => n.name),
+].filter(Boolean);
+
+/**
+ * The supplier's GLEIF record: by LEI when one is known, else by the national register
+ * number the registry answer gave, else by any of its names, and only a record whose
+ * names include the supplier's. A legal-name search for "Hangzhou Hikvision Digital
+ * Technology Co., Ltd." (its GLEIF legal name is in Chinese) came back with an unrelated
+ * "TRANSLINK (LTD) LTD", reported as GLEIF's record.
+ */
+export async function gleif(lei, name, registrationId, alsoName) {
+  const base = 'https://api.gleif.org/api/v1/lei-records';
+  const named = (a) => namesOf(a).some((n) => sameName(n, name) || (alsoName && sameName(n, alsoName)));
+  const urls = /^[A-Z0-9]{20}$/.test(lei ?? '')
+    ? [`${base}/${lei}`]
+    : [
+        ...(registrationId
+          ? [`${base}?filter%5Bentity.registeredAs%5D=${encodeURIComponent(registrationId)}&page%5Bsize%5D=5`]
+          : []),
+        `${base}?filter%5Bentity.names%5D=${encodeURIComponent(name)}&page%5Bsize%5D=5`,
+      ];
+  for (const url of urls) {
+    try {
+      const res = await fetch(url, { signal: AbortSignal.timeout(15_000) });
+      if (!res.ok) continue;
+      const d = await res.json();
+      const recs = Array.isArray(d.data) ? d.data : d.data ? [d.data] : [];
+      // A record fetched by its LEI is that entity; a search hit must carry the name.
+      const rec = Array.isArray(d.data) ? recs.find((x) => named(x.attributes)) : recs[0];
+      if (!rec) continue;
+      const a = rec.attributes;
+      return {
+        lei: a.lei,
+        legal_name: a.entity.legalName.name,
+        names: namesOf(a),
+        entity_status: a.entity.status,
+        registration_status: a.registration.status,
+        next_renewal: a.registration.nextRenewalDate,
+        registered_as: a.entity.registeredAs ?? null,
+        source: `https://search.gleif.org/#/record/${a.lei}`,
+      };
+    } catch {
+      // the next lookup, or none
+    }
   }
+  return null;
 }
 
 export async function review(memo, c) {
@@ -140,10 +167,16 @@ export async function review(memo, c) {
   }
 
   const r = reg?.purchase?.result ?? {};
-  const g = await gleif(r.lei ?? (isLei(r.registration_id) ? r.registration_id : null), legal ?? c.name);
+  const g = await gleif(
+    r.lei ?? (isLei(r.registration_id) ? r.registration_id : null),
+    c.name,
+    isLei(r.registration_id) ? null : r.registration_id,
+    legal,
+  );
   if (g) {
     // GLEIF has to confirm the supplier asked about, not whatever company the registry found.
-    const other = !sameName(g.legal_name, c.name);
+    // Any of the entity's names counts: Hikvision's GLEIF legal name is in Chinese.
+    const other = !g.names.some((n) => sameName(n, c.name) || (legal && sameName(n, legal)));
     // The registry answer's number is held against the national register number GLEIF
     // records: an LEI given as the registration number is corrected, and a number that
     // disagrees is for a person to settle (Siemens AG: the LEI came back as its number,
@@ -182,7 +215,7 @@ export async function review(memo, c) {
             ? `GLEIF shows "${g.legal_name}" (LEI ${g.lei}) as entity ${g.entity_status}, registration ${g.registration_status}.`
             : g.registration_status === 'LAPSED'
               ? `GLEIF shows LEI ${g.lei} for "${g.legal_name}" as LAPSED: its reference data was due for renewal on ${String(g.next_renewal).slice(0, 10)} and has not been renewed. The entity is still ${g.entity_status}; ask the supplier to renew before paying.`
-              : `GLEIF confirms "${g.legal_name}" (LEI ${g.lei}): entity ${g.entity_status}, registration ${g.registration_status}.`) +
+              : `GLEIF confirms "${g.legal_name}"${/^[\x00-\x7f]*$/.test(g.legal_name) ? '' : ` ("${g.names.find((n) => /^[\x00-\x7f]*$/.test(n)) ?? g.legal_name}")`} (LEI ${g.lei}): entity ${g.entity_status}, registration ${g.registration_status}.`) +
         numberNote,
       purchase: null,
       source: g.source,
