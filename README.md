@@ -35,10 +35,17 @@ cases never reached RELEASE. The last two are rerun with the next faucet claim.
 
 ### What the Reviewer caught
 
+In these runs the Reviewer did not change a decision; what it found is what a person reads
+before approving.
+
+
 - **A Provider that was wrong.** Counterproof URL Safety called Google Safe Browsing's public
-  phishing test page *safe*, so the Investigator released the swapped-link invoice. The
-  Reviewer moved it to REVIEW because the link is on `appspot.com`, not a Siemens domain, and
-  asked ChainSight directly, which calls the same page unsafe (risk 0.9).
+  phishing test page *safe*, twice. In the first run (not kept in `runs/`) both Minds passed it
+  and the invoice would have been released. The Reviewer then got a domain check and a second
+  URL scanner; on the rerun (`runs/…-siemens-swapped-link.json`) it flags that the link is on
+  `appspot.com`, not a Siemens domain, while its second scan failed ("fetch failed"). That
+  run's REVIEW came from the unpaid adverse-media check. Asked directly, ChainSight calls the
+  same page unsafe (risk 0.9).
 - **A registry match that was another company.** "Renova Group" came back as
   "RENOVA GROUP S.R.L."; the Reviewer screened that name too and noted GLEIF's record does
   not confirm the supplier.
