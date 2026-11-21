@@ -39,6 +39,14 @@ function unanswered(check, p) {
   return finding(check, 'unanswered', `${check}: no usable answer (${p.error ?? 'empty result'}), so it is not counted as a pass.`, p);
 }
 
+/** An ISO 17442 LEI: 20 characters whose letters-as-numbers value mod 97 is 1. */
+export function isLei(id) {
+  const v = String(id ?? '').trim().toUpperCase();
+  if (!/^[A-Z0-9]{18}[0-9]{2}$/.test(v)) return false;
+  const digits = v.replace(/[A-Z]/g, (ch) => String(ch.charCodeAt(0) - 55));
+  return BigInt(digits) % 97n === 1n;
+}
+
 async function registry(c) {
   const p = await ask('CORPORATE_REGISTRY_LOOKUP_GENERAL', {
     company: c.name,
@@ -46,7 +54,12 @@ async function registry(c) {
   });
   const r = p.result;
   if (!p.ok || !r?.legal_name) return unanswered('Registry record', p);
-  const id = r.registration_id ? `, registration ${r.registration_id}` : '';
+  // An LEI in registration_id is said to be one, not passed on as a register number.
+  const id = r.registration_id
+    ? isLei(r.registration_id)
+      ? `, LEI ${r.registration_id} (the answer gives no national register number)`
+      : `, registration ${r.registration_id}`
+    : '';
   if (r.active === false)
     return finding('Registry record', 'fail', `The registry shows "${r.legal_name}"${id} as not active.`, p);
   if (!sameName(r.legal_name, c.name))

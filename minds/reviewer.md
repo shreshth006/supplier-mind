@@ -21,6 +21,10 @@ Check, in this order:
    (`https://api.gleif.org/api/v1/lei-records/<LEI>`, free, no key). The record must be the
    supplier's own (same legal name), or it confirms nothing → REVIEW. Entity inactive or LEI
    retired → HOLD. LEI lapsed → REVIEW: ask the supplier to renew it.
+   Hold the registry answer's `registration_id` against GLEIF's `entity.registeredAs` (the
+   national register number, e.g. HRB 6684 for Siemens AG). A 20-character LEI given as the
+   registration number is not one: say so and give the register number from GLEIF. A
+   different number → REVIEW: a person confirms which register entry is the supplier's.
 
 Reply with the final decision, what you changed and why, the extra checks you ran with
 their Providers, prices and receipts, and the combined cost.

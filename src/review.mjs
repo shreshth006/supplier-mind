@@ -12,7 +12,7 @@
  *     a lapsed LEI is REVIEW, a retired or inactive entity is HOLD.
  */
 import { ask } from './anjoman.mjs';
-import { decide, sameName, scanVerdict } from './investigate.mjs';
+import { decide, isLei, sameName, scanVerdict } from './investigate.mjs';
 
 /**
  * Providers that scan URLs, asked for a second opinion when the first scan came from
@@ -45,6 +45,11 @@ function ownDomain(domain, name) {
 
 const RANK = { RELEASE: 0, REVIEW: 1, HOLD: 2 };
 const worse = (a, b) => (RANK[a] >= RANK[b] ? a : b);
+
+const plain = (x) =>
+  String(x ?? '')
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, '');
 
 async function gleif(lei, name) {
   const url = /^[A-Z0-9]{20}$/.test(lei ?? '')
@@ -134,30 +139,55 @@ export async function review(memo, c) {
     }
   }
 
-  const g = await gleif(reg?.purchase?.result?.registration_id, legal ?? c.name);
+  const r = reg?.purchase?.result ?? {};
+  const g = await gleif(r.lei ?? (isLei(r.registration_id) ? r.registration_id : null), legal ?? c.name);
   if (g) {
     // GLEIF has to confirm the supplier asked about, not whatever company the registry found.
     const other = !sameName(g.legal_name, c.name);
-    const status = other
-      ? 'review'
-      : g.entity_status !== 'ACTIVE' || g.registration_status === 'RETIRED'
-        ? 'fail'
-        : g.registration_status === 'LAPSED'
-          ? 'review'
-          : 'pass';
+    // The registry answer's number is held against the national register number GLEIF
+    // records: an LEI given as the registration number is corrected, and a number that
+    // disagrees is for a person to settle (Siemens AG: the LEI came back as its number,
+    // the register number is HRB 6684).
+    const leiAsNumber = isLei(r.registration_id);
+    const numberDiffers =
+      !other &&
+      !leiAsNumber &&
+      r.registration_id &&
+      g.registered_as &&
+      plain(r.registration_id) !== plain(g.registered_as);
+    const numberNote = other
+      ? ''
+      : leiAsNumber
+        ? ` The registry answer gave the LEI as its registration number; the national register number is ${g.registered_as ?? 'not recorded in GLEIF'}.`
+        : numberDiffers
+          ? ` The registry answer's registration number ${r.registration_id} is not the ${g.registered_as} GLEIF records: confirm which register entry is the supplier's.`
+          : g.registered_as
+            ? ` Register number ${g.registered_as}.`
+            : '';
+    const status =
+      other || numberDiffers
+        ? 'review'
+        : g.entity_status !== 'ACTIVE' || g.registration_status === 'RETIRED'
+          ? 'fail'
+          : g.registration_status === 'LAPSED'
+            ? 'review'
+            : 'pass';
     extra.push({
       check: 'Independent registry (GLEIF)',
       status,
-      summary: other
-        ? `GLEIF's record is for "${g.legal_name}" (LEI ${g.lei}), not "${c.name}", so it does not confirm the supplier.`
-        : status === 'fail'
-          ? `GLEIF shows "${g.legal_name}" (LEI ${g.lei}) as entity ${g.entity_status}, registration ${g.registration_status}.`
-          : status === 'review'
-            ? `GLEIF shows LEI ${g.lei} for "${g.legal_name}" as LAPSED: its reference data was due for renewal on ${String(g.next_renewal).slice(0, 10)} and has not been renewed. The entity is still ${g.entity_status}; ask the supplier to renew before paying.`
-            : `GLEIF confirms "${g.legal_name}" (LEI ${g.lei}): entity ${g.entity_status}, registration ${g.registration_status}.`,
+      summary:
+        (other
+          ? `GLEIF's record is for "${g.legal_name}" (LEI ${g.lei}), not "${c.name}", so it does not confirm the supplier.`
+          : status === 'fail'
+            ? `GLEIF shows "${g.legal_name}" (LEI ${g.lei}) as entity ${g.entity_status}, registration ${g.registration_status}.`
+            : g.registration_status === 'LAPSED'
+              ? `GLEIF shows LEI ${g.lei} for "${g.legal_name}" as LAPSED: its reference data was due for renewal on ${String(g.next_renewal).slice(0, 10)} and has not been renewed. The entity is still ${g.entity_status}; ask the supplier to renew before paying.`
+              : `GLEIF confirms "${g.legal_name}" (LEI ${g.lei}): entity ${g.entity_status}, registration ${g.registration_status}.`) +
+        numberNote,
       purchase: null,
       source: g.source,
       gleif: g,
+      ...(leiAsNumber || numberDiffers ? { corrected: { registration_id: g.registered_as } } : {}),
     });
   } else {
     extra.push({
