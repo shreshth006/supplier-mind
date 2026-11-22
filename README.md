@@ -14,6 +14,23 @@ The Minds' instructions are in `minds/`, the Anjoman skill (an HTTP tool, with a
 file) in `skill/`. `src/` runs the same two-Mind workflow from the command line, so every
 result here can be reproduced.
 
+## Running as Minds on hellominds
+
+Both Minds run on [hellominds](https://hellominds.ai), each with the Anjoman key in its
+private credentials and the skill and role pasted in from `skill/` and `minds/`:
+
+| Mind | Role | Mind ID |
+|---|---|---|
+| [Dawg](https://hellominds.ai/profile/minds/4c2c6b42-f36b-1410-8467-00039ce7df11) | Investigator | 4c2c6b42-f36b-1410-8467-00039ce7df11 |
+| [Daeg](https://hellominds.ai/profile/minds/e42b6b42-f36b-1410-8467-00039ce7df11) | Reviewer | e42b6b42-f36b-1410-8467-00039ce7df11 |
+
+First live case, 2026-11-23: the swapped payment link
+([`runs/minds/2026-11-23-dawg-siemens-swapped-link.md`](runs/minds/2026-11-23-dawg-siemens-swapped-link.md)).
+
+- The Investigator bought six checks ($0.07). The URL scanner it was routed to called Google's public phishing test page safe. The Investigator read the address itself and stopped at REVIEW.
+- The Reviewer bought a second scan from a different Provider, which called the page unsafe (risk 0.9), and moved the decision to HOLD ($0.03).
+- Every check carries its Provider, price and receipt, and the Reviewer's signals were checked on the Telegraph node afterwards.
+
 ## Results, 2026-11-20 (Ethereum Sepolia testnet, test USDC)
 
 Six supplier cases, each with the decision a careful person would reach from public facts
