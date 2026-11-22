@@ -1,6 +1,6 @@
 # Investigator Mind on hellominds: Siemens AG, swapped payment link (2026-11-23)
 
-The Investigator running as a Mind on hellominds ("Dawg"), set up with the paste-in steps in `minds/` and the Anjoman skill (`/engine/ask`, one API key in the Mind's private credentials). Input: `cases/siemens-swapped-link.json`. Six paid checks, one at a time, $0.07 test USDC.
+The Investigator running as a Mind on hellominds ("Dawg", Mind ID 4c2c6b42-f36b-1410-8467-00039ce7df11), set up with the paste-in steps in `minds/` and the Anjoman skill (`/engine/ask`, one API key in the Mind's private credentials). Input: `cases/siemens-swapped-link.json`. Six paid checks, one at a time, $0.07 test USDC.
 
 **Decision: REVIEW.** Expected HOLD.
 
@@ -30,7 +30,7 @@ Full receipt hashes, as the Mind reported them:
 
 ## The Reviewer Mind (hellominds, "Daeg"): REVIEW → HOLD
 
-The Reviewer received the case and the Investigator's memo above, with the paste-in steps from `minds/reviewer.md` and the same Anjoman skill and key. It ran its own checks, one at a time, for $0.03 test USDC.
+The Reviewer ("Daeg", Mind ID e42b6b42-f36b-1410-8467-00039ce7df11) received the case and the Investigator's memo above, with the paste-in steps from `minds/reviewer.md` and the same Anjoman skill and key. It ran its own checks, one at a time, for $0.03 test USDC.
 
 **Final decision: HOLD**, moved down from the Investigator's REVIEW.
 
