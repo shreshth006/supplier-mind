@@ -1,0 +1,325 @@
+{
+  "case": {
+    "name": "Hangzhou Hikvision Digital Technology Co., Ltd.",
+    "country": "CN",
+    "website": "https://www.hikvision.com",
+    "constructed": "An Alibaba.com buyer orders 2,000 IP cameras from a listing that names Hikvision as the manufacturer. The supplier is real; the proforma invoice is constructed: it asks for the 30% deposit by direct bank transfer outside Trade Assurance, to a Hong Kong account held by a trading company whose name is not the supplier's.",
+    "invoice": {
+      "number": "PI-2026-1127-0348",
+      "amount": 14400,
+      "currency": "USD",
+      "pay_currency": "USD"
+    },
+    "payment": {
+      "marketplace": "Alibaba.com",
+      "protection": "Trade Assurance",
+      "channel": "bank_transfer",
+      "beneficiary": "Hong Kong Shengtai Trading Limited"
+    },
+    "expect": {
+      "decision": "HOLD",
+      "why": "The deposit would leave Trade Assurance and go to an account in another company's name, and the supplier sits on US export-control and non-SDN sanctions lists that an SDN-only screen does not cover."
+    }
+  },
+  "at": "2026-11-27T15:47:53.959Z",
+  "final": "HOLD",
+  "cost_usd": 0.09,
+  "investigator": {
+    "supplier": "Hangzhou Hikvision Digital Technology Co., Ltd.",
+    "decision": "HOLD",
+    "reasons": [
+      "The registry shows \"SHENZHEN LDROBOT CO.,LTD\", registration 91440300MA5ETL7D53 as not active.",
+      "\"Hangzhou Hikvision Digital Technology Co., Ltd.\": no match, but only one list was searched (OFAC SDN), so other sanctions and export-control lists are unchecked.",
+      "A search answer ties the supplier to a risk term, so a person should read it: \"Meeks and Michael McCaul, Ranking Member and Chairman of the House Foreign Affairs Committee, sent a letter to President Biden calling for a determination and sanction authorization on Hangzhou Hikvision Digital Technolo\"",
+      "The invoice asks for payment by direct bank transfer outside Alibaba.com's Trade Assurance, so the order loses that protection: confirm the change with the supplier through the marketplace before paying.",
+      "The bank account belongs to \"Hong Kong Shengtai Trading Limited\", not to \"SHENZHEN LDROBOT CO.,LTD\": an invoice that pays someone other than the supplier is held until the supplier confirms the account through a channel already on file."
+    ],
+    "findings": [
+      {
+        "check": "Registry record",
+        "status": "fail",
+        "summary": "The registry shows \"SHENZHEN LDROBOT CO.,LTD\", registration 91440300MA5ETL7D53 as not active.",
+        "purchase": {
+          "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+          "params": {
+            "company": "Hangzhou Hikvision Digital Technology Co., Ltd.",
+            "jurisdiction": "CN"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "6164",
+          "miner_name": "Praman Desk Compliance & Procurement Auditor",
+          "result": {
+            "legal_name": "SHENZHEN LDROBOT CO.,LTD",
+            "registration_id": "91440300MA5ETL7D53",
+            "active": false,
+            "jurisdiction": "CN",
+            "registered_address": "南山区西丽街道国际创新谷6栋A座16楼, 深圳市, CN-GD, 518000, CN",
+            "incorporated": "2017-10-31"
+          },
+          "field_status": {
+            "legal_name": "ok",
+            "registration_id": "ok",
+            "active": "ok",
+            "jurisdiction": "ok",
+            "registered_address": "ok",
+            "incorporated": "ok"
+          },
+          "warnings": [
+            "Sources returned conflicting information for: active",
+            "Sources returned conflicting information for: answer",
+            "Sources returned conflicting information for: as_of",
+            "Sources returned conflicting information for: confidence",
+            "Sources returned conflicting information for: source",
+            "Sources returned conflicting information for: summary",
+            "Sources returned conflicting information for: legal_name",
+            "Sources returned conflicting information for: lei"
+          ],
+          "cost_usd": 0.02,
+          "signal_hash": "0xaf33032be9c9d8136e55c05e8c1e41bb5dd16fef696d4dcb8d006735daeb757f",
+          "receipt": {
+            "receipt_hash": "0x42144a6b2d5163ea042068a3707a2ee2c2b53099abf57596f4350b3686ad7c79",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6201",
+            "epoch_id": 67
+          },
+          "duration_ms": 21468,
+          "error": null
+        }
+      },
+      {
+        "check": "Sanctions: company",
+        "status": "review",
+        "summary": "\"Hangzhou Hikvision Digital Technology Co., Ltd.\": no match, but only one list was searched (OFAC SDN), so other sanctions and export-control lists are unchecked.",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "Hangzhou Hikvision Digital Technology Co., Ltd."
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "name": "Hangzhou Hikvision Digital Technology Co Ltd",
+            "matched": false,
+            "matches": null,
+            "lists": [
+              "OFAC SDN"
+            ],
+            "match_score": 0.727273
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "missing",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "The response does not include: Matching sanctions-list entries",
+            "Sources returned conflicting information for: answer",
+            "Sources returned conflicting information for: kind",
+            "Sources returned conflicting information for: name",
+            "Sources returned conflicting information for: score"
+          ],
+          "cost_usd": 0.02,
+          "signal_hash": "0x254bd79600df945bd0f611524e5357040dd94394e3d1b1096717f4daa911b9e2",
+          "receipt": {
+            "receipt_hash": "0x427bd98516786a879955950e53b3311d186923045950139b597c21ec09f1d607",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6204",
+            "epoch_id": 67
+          },
+          "duration_ms": 44651,
+          "error": null
+        }
+      },
+      {
+        "check": "Website",
+        "status": "pass",
+        "summary": "https://www.hikvision.com scanned as safe.",
+        "purchase": {
+          "intent": "URL_SCAN_VERDICT",
+          "params": {
+            "url": "https://www.hikvision.com"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "safe": true
+          },
+          "field_status": {
+            "safe": "ok"
+          },
+          "warnings": null,
+          "cost_usd": 0.01,
+          "signal_hash": "0x8de2517615e6530cf265eb9407d51491cb4120af38deb0e2af5bc6f38a3a615b",
+          "receipt": {
+            "receipt_hash": "0xdeb9d33951273343f71efbfdbb6dc1a944aea03951dfe4aa3db75dae0f21d19a",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6204",
+            "epoch_id": 67
+          },
+          "duration_ms": 5620,
+          "error": null
+        }
+      },
+      {
+        "check": "Adverse media",
+        "status": "review",
+        "summary": "A search answer ties the supplier to a risk term, so a person should read it: \"Meeks and Michael McCaul, Ranking Member and Chairman of the House Foreign Affairs Committee, sent a letter to President Biden calling for a determination and sanction authorization on Hangzhou Hikvision Digital Technolo\"",
+        "purchase": {
+          "intent": "WEB_SEARCH_GENERAL",
+          "params": {
+            "query": "Hangzhou Hikvision Digital Technology Co., Ltd. fraud sanctions lawsuit investigation"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "5530",
+          "miner_name": "Telegraph Verity Intelligence",
+          "result": {
+            "answer": "[1] Huawei\nHuawei Technologies Co., Ltd. (sometimes stylized as HUAWEI;  HWAH-way; Chinese: 华为; pinyin: ) is a Chinese multinational technology conglomerate company headquartered in Longgang, Shenzhen, Guangdong. Its main product lines include telecommunications equipment, consumer electronics, electric vehicle autonomous driving systems, and rooftop solar power products.\nSource: https://en.wikipedia.org/wiki/Huawei\nRevision: https://en.wikipedia.org/w/index.php?title=Huawei&oldid=1388182900\n\n[2] DJI\nDJI is a Chinese technology company headquartered in Shenzhen, Guangdong. DJI manufactures commercial unmanned aerial vehicles (drones) for aerial photography and videography. It also designs and manufactures camera systems, gimbal stabilizers, propulsion systems, enterprise software, aerial agriculture equipment, and flight control systems.\nSource: https://en.wikipedia.org/wiki/DJI\nRevision: https://en.wikipedia.org/w/index.php?title=DJI&oldid=1386260866\n\n[3] Press Releases\nPress Releases\n\nWashington, DC – This week, Representatives Gregory W. Meeks and Michael McCaul, Ranking Member and Chairman of the House Foreign Affairs Committee, sent a letter to President Biden calling for a determination and sanction authorization on Hangzhou Hikvision Digital Technology Co., Ltd., a surveillance company facilitating internationally recognized human rights violations against \nSource: https://democrats-foreignaffairs.house.gov/press-releases?ContentRecord_id=ABD37E4F-0AF8-44FF-BFDB-654E81B28197\n\n[4] US lawmakers demand FBI reconsider certifying biometric scanners from China\nAmong the most high-profile concerns raised is the FBI’s March recertification of Hikvision’s HK300 PIV fingerprint scanner, which had been added to the FBI’s CPL in January. This even though in 2018 national security concerns caused Congress to ban federal agencies or contractors from procuring anything “produced by” Hikvision.\n\nHikvision, officially known as Hangzhou Hikvision Digital Technology\nSource: https://www.biometricupdate.com/202507/us-lawmakers-demand-fbi-reconsider-certifying-biometric-scanners-from-china\n\n[5] 26 June 2023\nHikvision, also known as Hangzhou Hikvision Digital Technology Co, has faced numerous sanctions and restrictions by Canada's neighbor, the United States, over the past five and a half years for the firm's dealings and the use of its equipment in China's Xinjiang region, where rights groups have documented abuses against the Uyghur population and other Muslim communities.\n\n\"The government has deter\nSource: https://donlineuk.blogspot.com/search?q=hikvision\n\n[6] Feds order Chinese tech firm to close Canadian operations over national security\nFeds order Chinese tech firm to close Canadian operations over national security\n\nThe federal government has ordered a Chinese maker of surveillance camera systems to shutter its Canadian business and leave the country over national security concerns.\n\nIndustry Minister Mélanie Joly said in a post on X late Friday that the orders issued to Hikvision Canada Inc. are the result of a national securit\nSource: https://www.cjme.com/2025/06/28/feds-order-chinese-tech-firm-to-close-canadian-operations-over-national-security/",
+            "sources": [
+              "https://www.reuters.com/legal/us-court-rejects-hikvision-bid-lift-fcc-ban-equipment-approvals-2025-02-27/",
+              "https://news.bloomberglaw.com/securities-law/china-probes-hikvision-billionaire-over-alleged-misconduct",
+              "https://www.bbc.com/news/world-asia-china-65307503",
+              "https://www.jonesday.com/en/practices/experience/2021/04/hikvision-successfully-dismisses-patent-suit-involving-security-systems",
+              "https://tj.news/news/politics/hikvision"
+            ],
+            "brief": "China Probes Hikvision Billionaire Over Alleged Misconduct"
+          },
+          "field_status": {
+            "answer": "ok",
+            "sources": "ok",
+            "brief": "ok"
+          },
+          "warnings": [
+            "Sources returned conflicting information for: answer",
+            "Sources returned conflicting information for: brief",
+            "Sources returned conflicting information for: confidence",
+            "Sources returned conflicting information for: extract",
+            "Sources returned conflicting information for: revision",
+            "Sources returned conflicting information for: title",
+            "Sources returned conflicting information for: url",
+            "Sources returned conflicting information for: excerpt",
+            "Sources returned conflicting information for: source_id"
+          ],
+          "cost_usd": 0.02,
+          "signal_hash": "0x3ce8533e16a1acb492da28a411106de121097ff6dcaa6df50c0fb227ca17bf9f",
+          "receipt": {
+            "receipt_hash": "0x15475112445598d49813a081aff4291c2adbd0332813e4d19659cf4655ecf6e8",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6191",
+            "epoch_id": 67
+          },
+          "duration_ms": 38429,
+          "error": null
+        }
+      },
+      {
+        "check": "Payment channel",
+        "status": "review",
+        "summary": "The invoice asks for payment by direct bank transfer outside Alibaba.com's Trade Assurance, so the order loses that protection: confirm the change with the supplier through the marketplace before paying.",
+        "purchase": null
+      },
+      {
+        "check": "Payee",
+        "status": "fail",
+        "summary": "The bank account belongs to \"Hong Kong Shengtai Trading Limited\", not to \"SHENZHEN LDROBOT CO.,LTD\": an invoice that pays someone other than the supplier is held until the supplier confirms the account through a channel already on file.",
+        "purchase": null
+      }
+    ],
+    "paid_asks": 4,
+    "cost_usd": 0.07
+  },
+  "reviewer": {
+    "decision": "HOLD",
+    "changed": false,
+    "from": "HOLD",
+    "changes": [],
+    "extra_findings": [
+      {
+        "check": "Sanctions: legal name \"SHENZHEN LDROBOT CO.,LTD\"",
+        "status": "pass",
+        "summary": "The registry's legal name \"SHENZHEN LDROBOT CO.,LTD\" has no sanctions match either.",
+        "purchase": {
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "params": {
+            "name": "SHENZHEN LDROBOT CO.,LTD"
+          },
+          "ok": true,
+          "http_status": 200,
+          "miner_id": "302",
+          "miner_name": "ChainSight — Universal Intelligence & Data Oracle",
+          "result": {
+            "name": "SHENZHEN LDROBOT CO LTD",
+            "matched": false,
+            "matches": null,
+            "lists": [
+              "OFAC SDN"
+            ],
+            "match_score": 0.666667
+          },
+          "field_status": {
+            "name": "ok",
+            "matched": "ok",
+            "matches": "missing",
+            "lists": "ok",
+            "match_score": "ok"
+          },
+          "warnings": [
+            "The response does not include: Matching sanctions-list entries",
+            "Sources returned conflicting information for: answer",
+            "Sources returned conflicting information for: name"
+          ],
+          "cost_usd": 0.02,
+          "signal_hash": "0x39a93a72ddca37a655c1407f5579cfbe9a01946153b9f71e4a826c4015928358",
+          "receipt": {
+            "receipt_hash": "0x04d71a8c1f8c97aed6cfb9d28eb95bb10104f1c96404f0b751b30421326073d3",
+            "rail": "escrow",
+            "amount_uusdc": "10000",
+            "miner": "6204",
+            "epoch_id": 67
+          },
+          "duration_ms": 33623,
+          "error": null
+        }
+      },
+      {
+        "check": "Independent registry (GLEIF)",
+        "status": "pass",
+        "summary": "GLEIF confirms \"SHENZHEN LDROBOT CO.,LTD\" (LEI 836800HHLXOTYMLWHL95): entity ACTIVE, registration ISSUED. Register number 91440300MA5ETL7D53.",
+        "purchase": null,
+        "source": "https://search.gleif.org/#/record/836800HHLXOTYMLWHL95",
+        "gleif": {
+          "lei": "836800HHLXOTYMLWHL95",
+          "legal_name": "SHENZHEN LDROBOT CO.,LTD",
+          "names": [
+            "SHENZHEN LDROBOT CO.,LTD",
+            "深圳乐动机器人股份有限公司"
+          ],
+          "entity_status": "ACTIVE",
+          "registration_status": "ISSUED",
+          "next_renewal": "2027-11-23T03:50:35Z",
+          "registered_as": "91440300MA5ETL7D53",
+          "source": "https://search.gleif.org/#/record/836800HHLXOTYMLWHL95"
+        }
+      }
+    ],
+    "reasons": [
+      "The registry shows \"SHENZHEN LDROBOT CO.,LTD\", registration 91440300MA5ETL7D53 as not active.",
+      "\"Hangzhou Hikvision Digital Technology Co., Ltd.\": no match, but only one list was searched (OFAC SDN), so other sanctions and export-control lists are unchecked.",
+      "A search answer ties the supplier to a risk term, so a person should read it: \"Meeks and Michael McCaul, Ranking Member and Chairman of the House Foreign Affairs Committee, sent a letter to President Biden calling for a determination and sanction authorization on Hangzhou Hikvision Digital Technolo\"",
+      "The invoice asks for payment by direct bank transfer outside Alibaba.com's Trade Assurance, so the order loses that protection: confirm the change with the supplier through the marketplace before paying.",
+      "The bank account belongs to \"Hong Kong Shengtai Trading Limited\", not to \"SHENZHEN LDROBOT CO.,LTD\": an invoice that pays someone other than the supplier is held until the supplier confirms the account through a channel already on file."
+    ],
+    "cost_usd": 0.02
+  }
+}

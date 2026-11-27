@@ -16,6 +16,7 @@ const FORMS = [
   [/\baktiengesellschaft\b/g, 'ag'],
   [/\bgesellschaft mit beschr(a|ä)nkter haftung\b/g, 'gmbh'],
   [/\blimited\b/g, 'ltd'],
+  [/\bcompany\b/g, 'co'],
   [/\bincorporated\b/g, 'inc'],
   [/\bcorporation\b/g, 'corp'],
   [/\bosa(u|ü)hing\b/g, 'as'],
@@ -60,15 +61,18 @@ async function registry(c) {
       ? `, LEI ${r.registration_id} (the answer gives no national register number)`
       : `, registration ${r.registration_id}`
     : '';
-  if (r.active === false)
-    return finding('Registry record', 'fail', `The registry shows "${r.legal_name}"${id} as not active.`, p);
+  // The name is checked first: a record for another company says nothing about this one,
+  // active or not (Hikvision was answered with "SHENZHEN LDROBOT CO.,LTD", not active, and
+  // the payment was held as if the supplier were inactive).
   if (!sameName(r.legal_name, c.name))
     return finding(
       'Registry record',
       'review',
-      `The closest registry record is "${r.legal_name}"${id}, not "${c.name}": confirm it is the same company before paying it.`,
+      `The registry answer is for "${r.legal_name}"${id}${r.active === false ? ' (not active)' : ''}, not "${c.name}": it does not confirm the supplier, so a person confirms the company before paying it.`,
       p,
     );
+  if (r.active === false)
+    return finding('Registry record', 'fail', `The registry shows "${r.legal_name}"${id} as not active.`, p);
   return finding('Registry record', 'pass', `"${r.legal_name}"${id} is on the registry and active.`, p);
 }
 
@@ -98,9 +102,16 @@ async function sanctions(name, label) {
       p,
     );
   if (!lists.length) return finding(check, 'review', `"${name}": no match, but the answer names no list it searched.`, p);
-  // One list searched is not a clean screen: "no match on 1 lists (OFAC SDN, …)" read as if
-  // more had been checked. The lists are named exactly, and a single-list screen is a pass
-  // only for that list.
+  // One list searched is not a clean screen. Hikvision and DJI are not on OFAC SDN but are on
+  // OFAC's NS-CMIC list and the Commerce Entity List; an SDN-only "no match" passed both in
+  // the Counterparty Check app until 2026-11-23. A person reads the other lists before paying.
+  if (lists.length === 1)
+    return finding(
+      check,
+      'review',
+      `"${name}": no match, but only one list was searched (${lists[0]}), so other sanctions and export-control lists are unchecked.`,
+      p,
+    );
   return finding(
     check,
     'pass',
@@ -202,6 +213,40 @@ async function adverseMedia(c) {
     : finding('Adverse media', 'pass', 'No risk term next to the supplier’s name in the search answer.', p);
 }
 
+/**
+ * How the invoice asks to be paid, read from the case without a paid ask. Two of the
+ * commonest marketplace payment frauds: the supplier asks to be paid outside the
+ * marketplace's own escrow (Alibaba.com's Trade Assurance covers only orders paid through
+ * it), and the bank account belongs to someone other than the supplier.
+ */
+export function paymentTerms(c, legalName) {
+  const pay = c.payment;
+  if (!pay) return [];
+  const out = [];
+  if (pay.channel && pay.channel !== 'trade_assurance')
+    out.push(
+      finding(
+        'Payment channel',
+        'review',
+        `The invoice asks for payment ${pay.channel === 'bank_transfer' ? 'by direct bank transfer' : `by ${pay.channel}`} outside ${pay.marketplace ?? 'the marketplace'}'s ${pay.protection ?? 'buyer protection'}, so the order loses that protection: confirm the change with the supplier through the marketplace before paying.`,
+        null,
+      ),
+    );
+  if (pay.beneficiary) {
+    const names = [c.name, legalName].filter(Boolean);
+    if (!names.some((n) => sameName(n, pay.beneficiary)))
+      out.push(
+        finding(
+          'Payee',
+          'fail',
+          `The bank account belongs to "${pay.beneficiary}", not to "${legalName ?? c.name}": an invoice that pays someone other than the supplier is held until the supplier confirms the account through a channel already on file.`,
+          null,
+        ),
+      );
+  }
+  return out;
+}
+
 export function decide(findings) {
   if (findings.some((f) => f.status === 'fail')) return 'HOLD';
   if (findings.some((f) => f.status === 'review' || f.status === 'unanswered')) return 'REVIEW';
@@ -224,6 +269,10 @@ export async function investigate(c) {
     const f = await step();
     if (f) findings.push(f);
   }
+  // The supplier's legal name only when the registry answered about the supplier itself.
+  const reg = findings.find((f) => f.check === 'Registry record');
+  const legal = reg?.status === 'pass' ? reg.purchase?.result?.legal_name : undefined;
+  findings.push(...paymentTerms(c, legal));
   const cost = findings.reduce((s, f) => s + (Number(f.purchase?.cost_usd) || 0), 0);
   return {
     supplier: c.name,

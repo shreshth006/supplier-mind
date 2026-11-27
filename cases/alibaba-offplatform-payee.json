@@ -1,0 +1,17 @@
+{
+  "name": "Hangzhou Hikvision Digital Technology Co., Ltd.",
+  "country": "CN",
+  "website": "https://www.hikvision.com",
+  "constructed": "An Alibaba.com buyer orders 2,000 IP cameras from a listing that names Hikvision as the manufacturer. The supplier is real; the proforma invoice is constructed: it asks for the 30% deposit by direct bank transfer outside Trade Assurance, to a Hong Kong account held by a trading company whose name is not the supplier's.",
+  "invoice": { "number": "PI-2026-1127-0348", "amount": 14400, "currency": "USD", "pay_currency": "USD" },
+  "payment": {
+    "marketplace": "Alibaba.com",
+    "protection": "Trade Assurance",
+    "channel": "bank_transfer",
+    "beneficiary": "Hong Kong Shengtai Trading Limited"
+  },
+  "expect": {
+    "decision": "HOLD",
+    "why": "The deposit would leave Trade Assurance and go to an account in another company's name, and the supplier sits on US export-control and non-SDN sanctions lists that an SDN-only screen does not cover."
+  }
+}

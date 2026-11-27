@@ -31,6 +31,34 @@ First live case, 2026-11-23: the swapped payment link
 - The Reviewer bought a second scan from a different Provider, which called the page unsafe (risk 0.9), and moved the decision to HOLD ($0.03).
 - Every check carries its Provider, price and receipt, and the Reviewer's signals were checked on the Telegraph node afterwards.
 
+## An Alibaba.com order, 2026-11-27
+
+A buyer on Alibaba.com orders 2,000 IP cameras ($14,400 deposit) from a listing that names
+Hangzhou Hikvision Digital Technology as the manufacturer. The supplier is real. The two
+payment requests are constructed, and each case file says so:
+
+- [`alibaba-offplatform-payee`](cases/alibaba-offplatform-payee.json): the proforma invoice asks for the deposit by bank transfer outside Trade Assurance, to a Hong Kong account in another company's name.
+- [`alibaba-swapped-link`](cases/alibaba-swapped-link.json): the order stays in Trade Assurance, but the email's "pay the deposit here" link has been swapped for Google's public phishing test page.
+
+| Case | Investigator | Reviewer | Final | Cost |
+|---|---|---|---|---|
+| Off-platform, other payee ([run](runs/2026-11-27T15-50-17-637Z-alibaba-offplatform-payee.json)) | HOLD | HOLD (agrees) | **HOLD** | $0.08 |
+| Swapped payment link ([run](runs/2026-11-27T15-52-38-579Z-alibaba-swapped-link.json)) | REVIEW | HOLD (moved down) | **HOLD** | $0.10 |
+
+Two Providers got it wrong, and the Reviewer caught both:
+
+- **The payment link.** Counterproof URL Safety called the phishing page "safe", and the Investigator stopped at REVIEW. The Reviewer bought a second scan from ChainSight, which called it unsafe. It also saw that the link is on appspot.com, not a Hikvision domain, and moved the decision to HOLD.
+- **The registry record.** Asked for Hikvision, the registry Provider (Praman Desk) answered with another company: "SHENZHEN LDROBOT CO.,LTD", not active. The Reviewer named that as the Provider's mistake and looked the supplier up on GLEIF by its own name: LEI 3003000T24CMHQ382Y71, register number 91330000733796106P, active.
+
+The off-platform case is held for the payment itself:
+
+- The account belongs to "Hong Kong Shengtai Trading Limited", not the supplier.
+- The deposit would leave Trade Assurance.
+
+The sanctions screen came back "no match on OFAC SDN" only. Hikvision is not on that list, but it is on OFAC's NS-CMIC list and the Commerce Entity List. A one-list screen is therefore left for a person, not passed.
+
+The first run of the off-platform case ([run](runs/2026-11-27T15-47-53-959Z-alibaba-offplatform-payee.json)) is kept as found. It also ended in HOLD, but for the wrong reason: the Investigator read LDROBOT's "not active" as the supplier's, and both Minds then checked LDROBOT. The registry check now compares the name first, and the Reviewer never uses a wrong company's identifiers.
+
 ## Results, 2026-11-20 (Ethereum Sepolia testnet, test USDC)
 
 Six supplier cases, each with the decision a careful person would reach from public facts

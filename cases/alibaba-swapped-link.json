@@ -1,0 +1,9 @@
+{
+  "name": "Hangzhou Hikvision Digital Technology Co., Ltd.",
+  "country": "CN",
+  "website": "http://testsafebrowsing.appspot.com/s/phishing.html",
+  "constructed": "The same Alibaba.com order, paid inside Trade Assurance, but the follow-up email's \"pay the deposit here\" link has been swapped. The link is Google Safe Browsing's public phishing test page, which every scanner should flag.",
+  "invoice": { "number": "PI-2026-1127-0348", "amount": 14400, "currency": "USD", "pay_currency": "USD" },
+  "payment": { "marketplace": "Alibaba.com", "protection": "Trade Assurance", "channel": "trade_assurance" },
+  "expect": { "decision": "HOLD", "why": "The payment link is a known phishing page, whatever the supplier's own record says." }
+}

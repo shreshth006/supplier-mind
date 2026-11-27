@@ -166,17 +166,29 @@ export async function review(memo, c) {
     }
   }
 
-  const r = reg?.purchase?.result ?? {};
+  // A registry answer about another company is the Provider's mistake, not the supplier's
+  // record: on 2026-11-27 a Provider answered Hikvision with "SHENZHEN LDROBOT CO.,LTD" (not
+  // active), and both Minds went on to check LDROBOT. Its identifiers are not used to find the
+  // supplier's GLEIF record, and GLEIF has to confirm the supplier's own name.
+  const wrongCompany = !!legal && !sameName(legal, c.name);
+  if (wrongCompany)
+    extra.push({
+      check: 'Registry answer is another company',
+      status: 'review',
+      summary: `The registry Provider${reg?.purchase?.miner_name ? ` (${reg.purchase.miner_name})` : ''} answered about "${legal}", not "${c.name}", so its record says nothing about the supplier; the supplier is looked up on GLEIF by its own name instead.`,
+      purchase: null,
+    });
+  const r = wrongCompany ? {} : (reg?.purchase?.result ?? {});
   const g = await gleif(
     r.lei ?? (isLei(r.registration_id) ? r.registration_id : null),
     c.name,
     isLei(r.registration_id) ? null : r.registration_id,
-    legal,
+    wrongCompany ? undefined : legal,
   );
   if (g) {
     // GLEIF has to confirm the supplier asked about, not whatever company the registry found.
     // Any of the entity's names counts: Hikvision's GLEIF legal name is in Chinese.
-    const other = !g.names.some((n) => sameName(n, c.name) || (legal && sameName(n, legal)));
+    const other = !g.names.some((n) => sameName(n, c.name) || (!wrongCompany && legal && sameName(n, legal)));
     // The registry answer's number is held against the national register number GLEIF
     // records: an LEI given as the registration number is corrected, and a number that
     // disagrees is for a person to settle (Siemens AG: the LEI came back as its number,
